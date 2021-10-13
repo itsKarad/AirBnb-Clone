@@ -1,0 +1,8 @@
+.ui-card{
+    padding: 7%;
+    margin: 5%;
+    
+    border-radius: 20px;
+    background: linear-gradient(180deg, #353A40 0%, #16171B 100%);
+    box-shadow: 0 10px 40px -10px rgba(0,0,0,0.15) !important;
+}

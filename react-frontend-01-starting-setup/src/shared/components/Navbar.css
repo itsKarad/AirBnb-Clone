@@ -1,0 +1,14 @@
+.nav-link{
+    color: #7F8489 !important;
+    font-weight: 600;
+}
+.nav-link.active{
+    color:white !important;
+    background: linear-gradient(318.21deg, #2C3036 14.05%, #31343C 85.29%);
+    border-radius: 10px;
+}
+.navbar-brand{
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: -0.05rem;
+}
