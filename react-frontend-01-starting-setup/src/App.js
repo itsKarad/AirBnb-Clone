@@ -14,7 +14,7 @@ function App() {
           <Route path = "/" exact>
           <h1>Let's start!</h1>
           </Route>
-          <Route path = "/places" exact>
+          <Route path = "/:userId/places" exact>
             <UserPlaces></UserPlaces>
           </Route>
           <Route path = "/places/new" exact>

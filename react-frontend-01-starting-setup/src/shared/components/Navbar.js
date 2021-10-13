@@ -20,7 +20,7 @@ const Navbar = (props) => {
                         <NavLink className = "nav-link" to = "/users">All users</NavLink>
                     </li>
                     <li className="nav-item">
-                        <NavLink className = "nav-link" to = "/places">My Places</NavLink>
+                        <NavLink className = "nav-link" to = "/u1/places">My Places</NavLink>
                     </li>
                     <li className="nav-item">
                         <NavLink className = "nav-link" to = "/places/new">Add a place</NavLink>

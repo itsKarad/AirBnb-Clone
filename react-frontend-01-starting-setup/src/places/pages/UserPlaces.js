@@ -1,6 +1,7 @@
 import React from 'react';
 import Card from '../../UI/Card';
 import PlaceList from '../components/Placelist';
+import { useParams } from 'react-router';
 import './UserPlaces.css';
 
 const DUMMY_PLACES = [
@@ -13,7 +14,8 @@ const DUMMY_PLACES = [
         location: {
             lat: 18.993933092358084,
             long: 73.27187537836642,
-        }
+        },
+        creator: "u1",
     },
     {
         id: "p2",
@@ -24,7 +26,8 @@ const DUMMY_PLACES = [
         location: {
             lat: 18.993933092358084,
             long: 73.27187537836642,
-        }
+        },
+        creator: "u1",
     },
     {
         id: "p3",
@@ -35,17 +38,20 @@ const DUMMY_PLACES = [
         location: {
             lat: 18.993933092358084,
             long: 73.27187537836642,
-        }
+        },
+        creator: "u2",
     },
 ];
 const UserPlaces = (props) => {
+    const userId = useParams().userId;
+    const loadedPlaces = DUMMY_PLACES.filter((place) => (place.creator === userId));
     return (
         <div className = "user-places-container">
             <div className = "places-header">
                 Your places
             </div>
             <Card>
-                <PlaceList places = {DUMMY_PLACES}></PlaceList>
+                <PlaceList places = {loadedPlaces}></PlaceList>
             </Card>
         </div>
         
