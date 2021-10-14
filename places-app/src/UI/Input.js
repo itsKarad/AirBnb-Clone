@@ -4,20 +4,36 @@ import './Input.css';
 const CHECK_NOT_EMPTY = (val) => {
     return !(!val || val === "");
 }
+const CHECK_EMAIL = (val) => {
+    return !(!val || val === "" || !val.includes("@"));
+}
+const CHECK_PASSWORD = (val) => {
+    return !(!val || val === "" || val.length <= 6 );
+}
+const validate = (val, type) => {
+    if(type === "email"){
+        return CHECK_EMAIL(val);
+    }
+    else if(type === "password"){
+        return CHECK_PASSWORD(val);
+    }
+    return CHECK_NOT_EMPTY(val);
+}
 
 const inputReducer = (state, action) => {
     if(action.type === "CHANGE"){       
         return {
             ...state,
             value: action.val,
-            isValid: CHECK_NOT_EMPTY(action.val),
+            isValid: validate(action.val, state.inputType),
         }             
     }
     return state;
 };
 
 const Input = (props) => {
-    const [inputState, dispatch] = useReducer(inputReducer, { value: props.value ? props.value : "", isValid: props.value? CHECK_NOT_EMPTY(props.value) : false});
+    
+    const [inputState, dispatch] = useReducer(inputReducer, { inputType: props.type, value: props.value ? props.value : "", isValid: props.value? validate(props.value, props.type) : false});
     const [isTouched, setIsTouched] = useState(false);
     const onChangeHandler = (event) => {
         dispatch({type: "CHANGE", val:event.target.value });

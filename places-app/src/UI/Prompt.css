@@ -1,0 +1,64 @@
+.modal {
+    z-index: 100;
+    position: fixed;
+    top: 22vh;
+    left: 10%;
+    width: 80%;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+    border-radius: 20px;
+    color: black;
+    display: block;
+    border: none;  
+    height: 15rem;
+}
+
+  
+.modal-content {
+    padding: 2%;
+    border-radius: 0 0 20px 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    background: #282828;
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+}
+.modal-actions{
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+}
+button{
+    margin: 2%;
+}
+
+@media (min-width: 768px) {
+    .modal {
+        left: calc(50% - 20rem);
+        width: 40rem;
+    }
+}
+
+.modal-enter {
+    transform: translateY(-10rem);
+    opacity: 0;
+}
+
+.modal-enter-active {
+    transform: translateY(0);
+    opacity: 1;
+    transition: all 200ms;
+}
+
+.modal-exit {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.modal-exit-active {
+    transform: translateY(-10rem);
+    opacity: 0;
+    transition: all 200ms;
+}
+  

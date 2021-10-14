@@ -2,12 +2,20 @@ import React, {useState} from 'react';
 import { Link } from 'react-router-dom';
 import Map from '../../UI/Map';
 import Modal from '../../UI/Modal';
+import Prompt from '../../UI/Prompt';
 import './PlaceItem.css'
 const PlaceItem = (props) => {
     const [showMap, setShowMap] = useState(false);
+    const [showPrompt, setShowPrompt] = useState(false);
     const openMapHandler = () => setShowMap(true);
     const closeMapHandler = () => setShowMap(false);
-    console.log(props.place.location);
+    const openPromptHandler = () => setShowPrompt(true);
+    const closePromptHandler = () => setShowPrompt(false);
+    const deletePlaceHandler = () => {
+        console.log("Deleting place!");
+        closePromptHandler();
+        // Send request to backend
+    }
     return (        
         <React.Fragment>
             <Modal 
@@ -21,6 +29,16 @@ const PlaceItem = (props) => {
                     <Map center = {props.place.location} zoom = {16}></Map>
                 </div>         
             </Modal>
+            <Prompt
+                show = {showPrompt}
+                onCancel = {closePromptHandler}
+                header = {`Are you sure you want to delete ${props.place.title}?`}>
+                <React.Fragment>
+                    <button onClick = {deletePlaceHandler} className = "btn btn-danger">Yes, delete it</button>
+                    <button onClick = {closePromptHandler} className = "btn btn-warning">No</button>
+                </React.Fragment>
+
+            </Prompt>
             <div className = "place-container col-sm-12 col-md-6">
                 <div className = "place-item">
                     <div className = "place-image-container" style = {{
@@ -48,8 +66,8 @@ const PlaceItem = (props) => {
                                 
                             </div>
                             <div className = "place-action">
-                                <Link to = {`/place/${props.place.id}`}>
-                                    <button className = "btn btn-danger">Delete</button>
+                                <Link>
+                                    <button onClick = {openPromptHandler} className = "btn btn-danger">Delete</button>
                                 </Link>                            
                             </div>                        
                         </div>

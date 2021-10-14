@@ -1,0 +1,11 @@
+.auth-header{
+    font-weight: 800;
+    letter-spacing: -0.12rem;
+    font-size: 4rem;
+    text-align: center;
+    margin: 5%;
+}
+.auth-form-container{
+    margin: 0 auto;
+    width: 60%;
+}

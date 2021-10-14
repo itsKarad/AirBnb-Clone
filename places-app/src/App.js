@@ -6,6 +6,7 @@ import './App.css';
 import Navbar from './shared/components/Navbar';
 import UserPlaces from './places/pages/UserPlaces';
 import UpdatePlace from './places/pages/UpdatePlace';
+import Auth from './auth/Auth';
 function App() {
   return (
     <div className = "app-container">
@@ -14,6 +15,9 @@ function App() {
         <Switch>
           <Route path = "/" exact>
           <h1>Let's start!</h1>
+          </Route>
+          <Route path = "/login">
+            <Auth></Auth>
           </Route>
           <Route path = "/:userId/places" exact>
             <UserPlaces></UserPlaces>
