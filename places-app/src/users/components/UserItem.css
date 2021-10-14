@@ -15,6 +15,8 @@
 }
 .user-photo{
     width: 40%;
+    margin: 5%;
+    margin-right: 10%;
 }
 img{
     width: 100%;
@@ -24,12 +26,13 @@ img{
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
-
+    height: 100%;    
 }
 .user-name{
     font-size: 1.25rem;
     font-weight: 600; 
     color: #FDFDFD;
+    margin-bottom: 5%;
 }
 .user-places{
     font-size: 1.1rem;

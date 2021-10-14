@@ -1,26 +1,25 @@
 import React, {useState} from 'react';
 import { Link } from 'react-router-dom';
+import Map from '../../UI/Map';
 import Modal from '../../UI/Modal';
 import './PlaceItem.css'
 const PlaceItem = (props) => {
     const [showMap, setShowMap] = useState(false);
     const openMapHandler = () => setShowMap(true);
     const closeMapHandler = () => setShowMap(false);
-
-    return (
+    console.log(props.place.location);
+    return (        
         <React.Fragment>
             <Modal 
                 show = {showMap} 
                 onCancel = {closeMapHandler}
-                header = {props.place.title}                
-                footer = {<button onClick = {closeMapHandler}>Close</button>}>      
+                header = {props.place.title}>      
                 <div className = "map-container">
-                    <div className = "place-address">
+                    <div className = "map-place-address">
                         {props.place.address}
                     </div>
-                    <h1>Google maps overlay for this place!</h1>
-                </div>           
-                
+                    <Map center = {props.place.location} zoom = {16}></Map>
+                </div>         
             </Modal>
             <div className = "place-container col-sm-12 col-md-6">
                 <div className = "place-item">

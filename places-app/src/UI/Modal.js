@@ -7,18 +7,17 @@ import './Modal.css';
 
 const ModalOverlay = (props) => {
     const content = (
-        <div className = {`modal ${props.className}`} style = {props.style}>
-            <header className = {`modal-header ${props.headerClass}`}>
-                <h2>{props.header}</h2>
-            </header>
-            <form onSubmit = {props.onSubmit ? props.onSubmit : (event) => event.preventDefault()}>
-                <div className = {`modal-content $props.contentClass`}>
-                    {props.children}
-                </div>
-                <footer className = {`modal-footer $props.footerClass`}>
-                    {props.footer}
-                </footer>
-            </form>
+        <div className = "modal">
+            <div className = "modal-header">
+                {props.header}
+            </div>
+            <div className = "modal-content">
+                {props.children}
+            </div>                
+            <div className = "modal-footer">
+                {props.footer}
+                <button className = "map-close-button btn btn-danger" onClick = {props.onCancel}>x</button>
+            </div>
         </div>
     );
     return ReactDOM.createPortal(content, document.getElementById("modal-hook"));

@@ -33,6 +33,26 @@
     margin-right: 2%;
 }
 .map-container{
-    height: 15rem;
+    height: 30rem;
     width: 100%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+.map-close-button{
+    border-radius: 50%;
+    padding: 1%;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    font-size: 1.4rem;
+    height: 50px;
+    width: 50px;
+}
+.map-place-address{
+    font-size: 1.2rem;
+    text-align: center;
+    font-weight: 500;
+    color: whitesmoke;
 }

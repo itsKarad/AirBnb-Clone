@@ -13,7 +13,7 @@ const DUMMY_PLACES = [
         address: "Kasturba road, Matheran, Maharashtra, 410102",
         location: {
             lat: 18.993933092358084,
-            long: 73.27187537836642,
+            lng: 73.27187537836642,
         },
         creator: "u1",
     },
@@ -25,7 +25,7 @@ const DUMMY_PLACES = [
         address: "Kasturba road, Matheran, Maharashtra, 410102",
         location: {
             lat: 18.993933092358084,
-            long: 73.27187537836642,
+            lng: 73.27187537836642,
         },
         creator: "u1",
     },
@@ -37,7 +37,7 @@ const DUMMY_PLACES = [
         address: "Kasturba road, Matheran, Maharashtra, 410102",
         location: {
             lat: 18.993933092358084,
-            long: 73.27187537836642,
+            lng: 73.27187537836642,
         },
         creator: "u2",
     },

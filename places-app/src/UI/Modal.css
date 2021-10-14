@@ -5,28 +5,45 @@
   left: 10%;
   width: 80%;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
-  border-radius: 8px;
+  border-radius: 20px;
   color: black;
   display: block;
+  border: none;
+  
 }
   
 .modal-header {
   width: 100%;
   padding: 1rem 0.5rem;
-  background: #2a006e;
-  color: black;
-}
+  background: #282828;
   
-.modal-header h2 {
-  margin: 0.5rem;
+  color: white;
+  border: none;
+  font-size: 3rem;
+  font-weight: 800;
+  letter-spacing: -0.03rem;
+  display: flex;
+  justify-content: center;
+  border-bottom: 2px solid white;
 }
 
 .modal-content {
-  padding: 1rem 0.5rem;
+  padding: 2%;
+  border-radius: 0 0 20px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  background: #282828;
+  border: none;
+
 }
 
 .modal-footer {
-  padding: 1rem 0.5rem;
+  padding: 3%;
+  display: flex;
+  border: none;
+  flex-direction: row;
+  justify-content: center;
 }
 
 @media (min-width: 768px) {
