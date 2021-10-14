@@ -1,14 +1,21 @@
 .nav-link{
     color: #7F8489 !important;
     font-weight: 600;
+    font-size: 1.2rem;
 }
 .nav-link.active{
     color:white !important;
     background: linear-gradient(318.21deg, #2C3036 14.05%, #31343C 85.29%);
     border-radius: 10px;
 }
-.navbar-brand{
-    font-size: 2rem;
-    font-weight: 700;
-    letter-spacing: -0.05rem;
+.navbar{
+    border-radius: 20px;
+    /* background-color: #25282c !important; */
+    margin-top: 1%;
+    margin-bottom: 2%;
+    margin-left: 7%;
+    margin-right: 7%;
+    border:8px outset #1C1E22;
+    -webkit-box-shadow: 5px 5px 15px rgba(0,0,0,0.4);
+    -moz-box-shadow: 5px 5px 15px rgba(0,0,0,0.4);    
 }

@@ -9,7 +9,7 @@ const UserItem = (props) => {
                 <div className = "user-photo">
                     <img src = {props.user.image} alt = "Profile pic"></img>
                 </div>
-                <Link>
+                <Link to = {`/${props.user.id}/places`}>
                     <div className = "user-info">
                         <div className = "user-name">
                             {props.user.name}
