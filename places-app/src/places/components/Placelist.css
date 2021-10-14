@@ -1,0 +1,7 @@
+.no-places-container{
+    display: flex;
+    text-align: center;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+}

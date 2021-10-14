@@ -1,5 +1,7 @@
 import React, {useCallback, useReducer} from 'react';
+import { useParams } from 'react-router';
 import Input from '../../UI/Input';
+import { DUMMY_PLACES } from './UserPlaces';
 import './NewPlace.css';
 
 const formReducer = (state, action) => {
@@ -25,7 +27,7 @@ const formReducer = (state, action) => {
     return state;
 };
 
-const NewPlace = (props) => {
+const UpdatePlace = (props) => {    
     const [formIsValidState, dispatch] = useReducer(formReducer, {
         inputs:{
             title:{
@@ -56,10 +58,25 @@ const NewPlace = (props) => {
         console.log(formIsValidState.inputs);
         // Send this to backend
     }
+
+    const placeId = useParams().placeId;
+    const place = DUMMY_PLACES.find(p => p.id === placeId);
+    if(!place){
+        return (
+            <div className = "new-place-container container">
+                <div className = "new-place-header">
+                    Update this place
+                </div>
+                <div>
+                <h3>Could not find that place!</h3>
+                </div>
+            </div>
+        );
+    }
     return (
         <div className = "add-place-container container">
             <div className = "add-place-header">
-                Add your place
+                Update this place
             </div>
             <div className = "add-place-form-container">
                 <form className = "add-place-form">
@@ -69,6 +86,7 @@ const NewPlace = (props) => {
                         element = "input" 
                         label = "Title"
                         errorText = "Title must not be empty!"
+                        value = {place.title}
                         onInput = {inputChangeHandler}
                         ></Input>
                     <Input 
@@ -77,6 +95,7 @@ const NewPlace = (props) => {
                         element = "input" 
                         label = "Description"
                         errorText = "Description must not be empty!"
+                        value = {place.description}
                         onInput = {inputChangeHandler}
                         ></Input>
                     <Input 
@@ -85,14 +104,16 @@ const NewPlace = (props) => {
                         element = "input" 
                         label = "Address"
                         errorText = "Address must not be empty!"
+                        value = {place.address}
                         onInput = {inputChangeHandler}
                         ></Input>
                     <button disabled = {!formIsValidState.isValid} onClick = {formSubmitHandler} className = "btn btn-primary">Submit</button>
                 </form>
             </div>
-
         </div>
+        
+        
     );
 };
 
-export default NewPlace;    
+export default UpdatePlace;

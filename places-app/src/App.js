@@ -5,6 +5,7 @@ import Users from './users/pages/Users';
 import './App.css';
 import Navbar from './shared/components/Navbar';
 import UserPlaces from './places/pages/UserPlaces';
+import UpdatePlace from './places/pages/UpdatePlace';
 function App() {
   return (
     <div className = "app-container">
@@ -19,6 +20,9 @@ function App() {
           </Route>
           <Route path = "/places/new" exact>
             <NewPlace></NewPlace>
+          </Route>
+          <Route path = "/place/:placeId">
+            <UpdatePlace></UpdatePlace>
           </Route>
           <Route path = "/users" exact>
             <Users></Users>

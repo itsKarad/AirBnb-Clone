@@ -1,12 +1,18 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import PlaceItem from './PlaceItem';
+
+import './Placelist.css';
 
 const PlaceList = (props) => {
     let placesContent;
-    if(!props || !props.places || !props.places.length === 0){
+    if(!props || !props.places || props.places.length === 0){
         placesContent = (
-            <div>
-                <h2>No places found! Maybe create one?</h2>
+            <div className = "no-places-container">
+                <h2 className = "mb-5">No places found! Maybe create one?</h2>
+                <Link to = "/places/new">
+                    <button className = "btn btn-primary">Create yours</button>
+                </Link>                
             </div>
         );
     }

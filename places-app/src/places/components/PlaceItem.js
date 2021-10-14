@@ -42,13 +42,13 @@ const PlaceItem = (props) => {
                                                            
                             </div>
                             <div className = "place-action">
-                                <Link to = {`/places/${props.place.id}`}>
+                                <Link to = {`/place/${props.place.id}`}>
                                     <button className = "btn btn-warning">Edit</button>
                                 </Link>
                                 
                             </div>
                             <div className = "place-action">
-                                <Link to = {`/places/${props.place.id}`}>
+                                <Link to = {`/place/${props.place.id}`}>
                                     <button className = "btn btn-danger">Delete</button>
                                 </Link>                            
                             </div>                        

@@ -4,7 +4,7 @@ import PlaceList from '../components/Placelist';
 import { useParams } from 'react-router';
 import './UserPlaces.css';
 
-const DUMMY_PLACES = [
+export const DUMMY_PLACES = [
     {
         id: "p1",
         title: "Matheran",
