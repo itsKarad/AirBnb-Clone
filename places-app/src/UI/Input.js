@@ -52,13 +52,14 @@ const Input = (props) => {
     
     if(props.element === "input"){
         return (
-            <div className = {`form-control ${!inputState.isValid && isTouched? "form-control--invalid" : ""}`}>
+            <div className = {`form form-group ${!inputState.isValid && isTouched? "form--invalid" : ""}`}>
                 <label for = {props.id}>{props.label}</label>
                 <input 
                     id = {props.id} 
                     placeholder = {props.placeholder} 
                     type = {props.type}
                     onChange = {onChangeHandler} 
+                    className = "form-control"
                     value = {inputState.value}
                     onBlur = {onBlurHandler}
                 ></input>
@@ -68,15 +69,20 @@ const Input = (props) => {
         );
     }
     else{
+        
         return (
-            <div className = "form-control">
+            <div className = {`form form-group ${!inputState.isValid && isTouched? "form--invalid" : ""}`}>
                 <label for = {props.id}>{props.label}</label>
                 <textarea 
                     id = {props.id} 
                     rows = {props.rows || 3}
                     onChange = {onChangeHandler} 
                     value = {inputState.value}
+                    className = "form-control"
+                    placeholder = {props.placeholder}
+                    onBlur = {onBlurHandler}
                 ></textarea>
+                {!inputState.isValid && isTouched && <p>{props.errorText}</p>}
             </div>            
         );
     }

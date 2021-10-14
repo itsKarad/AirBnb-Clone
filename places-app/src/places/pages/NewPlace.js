@@ -69,13 +69,17 @@ const NewPlace = (props) => {
                         element = "input" 
                         label = "Title"
                         errorText = "Title must not be empty!"
+                        placeholder = "Goa"
                         onInput = {inputChangeHandler}
                         ></Input>
+                    
                     <Input 
                         id = "description"
-                        type = "text" 
-                        element = "input" 
+                        type = "textarea" 
+                        element = "textarea" 
+                        rows = "5"
                         label = "Description"
+                        placeholder = "Goa is a state in western India with coastlines stretching along..."
                         errorText = "Description must not be empty!"
                         onInput = {inputChangeHandler}
                         ></Input>
@@ -84,6 +88,7 @@ const NewPlace = (props) => {
                         type = "text" 
                         element = "input" 
                         label = "Address"
+                        placeholder = "Goa, below Maharashtra, India"
                         errorText = "Address must not be empty!"
                         onInput = {inputChangeHandler}
                         ></Input>

@@ -91,10 +91,12 @@ const UpdatePlace = (props) => {
                         ></Input>
                     <Input 
                         id = "description"
-                        type = "text" 
-                        element = "input" 
+                        type = "textarea" 
+                        element = "textarea" 
+                        rows = "5"
                         label = "Description"
-                        errorText = "Description must not be empty!"
+                        placeholder = "Goa is a state in western India with coastlines stretching along..."
+                        errorText = "Description must not be empty!" 
                         value = {place.description}
                         onInput = {inputChangeHandler}
                         ></Input>

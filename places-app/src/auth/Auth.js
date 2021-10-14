@@ -1,4 +1,4 @@
-import React, {useReducer, useCallback} from 'react';
+import React, {useState, useReducer, useCallback} from 'react';
 import Card from '../UI/Card';
 import Input from '../UI/Input';
 import './Auth.css';
@@ -26,6 +26,7 @@ const formReducer = (state, action) => {
     return state;
 }
 const Auth = (props) => {
+    const [showLogin, setShowLogin] = useState(true);
     const [formIsValidState, dispatch] = useReducer(formReducer, {
         inputs:{
             email:{
@@ -52,13 +53,43 @@ const Auth = (props) => {
         console.log(formIsValidState.inputs);
         // Send this to backend
     }
+    const switchModeHandler = (event) => {
+        event.preventDefault();
+        const mode = showLogin;
+        setShowLogin(!mode);
+    }
     return (
         <div className = "auth-container">
             <div className = "auth-header">
-                Log In
+                {showLogin && "Sign In"}
+                {!showLogin && "Sign up"}
             </div>
             <div className = "auth-form-container">
-                <Card>
+                {showLogin && 
+                        <form>
+                            <Input 
+                                element = "input" 
+                                id = "email" 
+                                type = "email" 
+                                label = "E-mail"
+                                className = "form-control"
+                                errorText = "Please provide a valid email."
+                                onInput = {inputChangeHandler}
+                            ></Input>
+                            <Input 
+                                element = "input" 
+                                id = "password" 
+                                type = "password" 
+                                label = "Password"
+                                className = "form-control"
+                                errorText = "Password must be more than 6 characters."
+                                onInput = {inputChangeHandler}
+                            ></Input>
+                        <button onClick = {formSubmitHandler} disabled = {!formIsValidState.isValid} className = "btn btn-primary">Log In</button>
+                    </form>
+                }
+
+                {!showLogin && 
                     <form>
                         <Input 
                             element = "input" 
@@ -70,14 +101,24 @@ const Auth = (props) => {
                         ></Input>
                         <Input 
                             element = "input" 
+                            id = "text" 
+                            type = "text" 
+                            label = "Your name"
+                            errorText = "Name cannot be empty!"
+                            onInput = {inputChangeHandler}
+                        ></Input>
+                        <Input 
+                            element = "input" 
                             id = "password" 
                             type = "password" 
                             label = "Password"
                             errorText = "Password must be more than 6 characters."
                             onInput = {inputChangeHandler}
                         ></Input>
+                        <button onClick = {formSubmitHandler} disabled = {!formIsValidState.isValid} className = "btn btn-primary">Log In</button>
                     </form>
-                </Card>                    
+                }
+                <button onClick = {switchModeHandler} className = "btn btn-outline-warning">Switch to {showLogin? "Sign-up" : "Sign In"}?</button>     
             </div>
             
             
