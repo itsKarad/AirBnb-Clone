@@ -17,6 +17,9 @@ router.post("/users/signup", [
     check("email").isEmail()
 ], createNewUser);
 
-router.post("/users/login", login);
+router.post("/users/login", [
+    check("email").isEmail(),
+    check("password").isLength({min: 6}),
+],login);
 
 module.exports = router;

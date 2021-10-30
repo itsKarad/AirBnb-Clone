@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-
+const uniqueValidator = require('mongoose-unique-validator');
 
 const userSchema = new mongoose.Schema({
     image: {
@@ -12,15 +12,22 @@ const userSchema = new mongoose.Schema({
     },
     email: {
         type: String,
+        unique: true,
         required: true,
     },
-    places: {
-        type: Number,
+    password: {
+        type: String,
         required: true,
-    }
+        minlength: 6,
+    },
+    places: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Place',
+    }],
 });
+userSchema.plugin(uniqueValidator);
 
-const User = mongoose.model('Place', userSchema);
+const User = mongoose.model('User', userSchema);
 
 module.exports = User;
 
