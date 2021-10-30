@@ -4,6 +4,15 @@ const app = express();
 const placesRoutes = require("./routes/places");
 const usersRoutes = require("./routes/users");
 const HttpError = require("./models/http-error");
+const mongoose = require("mongoose");
+const dotenv = require("dotenv");
+const connectDB = require("./config/db");
+
+// Loading config
+dotenv.config({ path: "./config.env" });
+
+// Connect to DB
+connectDB();
 
 // Middleware
 app.use(express.json());
