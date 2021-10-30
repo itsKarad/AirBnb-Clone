@@ -3,6 +3,7 @@ const {v4: uuidv4} = require('uuid');
 const { validationResult} = require("express-validator")
 const getCoordinates = require("../util/location");
 const Place = require("../models/place");
+const User = require("../models/user");
 
 const getPlaceById = async (req, res, next) => {
     const placeId = req.params.placeId;
@@ -42,6 +43,7 @@ const createPlace = async(req, res, next) => {
     }
 
     const {title, description, address} = req.body;
+    const creator = "617d4b34bcea260a6cdf144d";
     let coordinates;
     try{
         coordinates = await getCoordinates(address);
@@ -49,20 +51,35 @@ const createPlace = async(req, res, next) => {
     catch (err){
         return next(err);
     }    
-    console.log(coordinates);
     const newPlace = new Place({
         title,
         description,
         address,
         location: coordinates,
         image: "https://upload.wikimedia.org/wikipedia/commons/4/48/Goa_beautiful_beach.JPG",
-        creator: "u1"
+        creator,
     });
+    let existingUser;
+    try{
+        existingUser = await User.findById(creator);
+    }
+    catch{
+        return next(new HttpError("Something went wrong, could not find user", 404));
+    }
+    if(!existingUser){
+        return next(new HttpError("Could not find user for the provided id", 404));
+    }
     try{
         await newPlace.save();
     }
     catch (err){
         return next(new HttpError("Creating place failed, please try again", 500));
+    }
+    try{
+        existingUser.places.push(newPlace);
+        await existingUser.save();
+    } catch{
+        return next(new HttpError("Could not save user", 404));
     }
     res.status(201).json({place: newPlace.toObject({getters: true})});
 }
@@ -101,6 +118,28 @@ const updatePlaceById = async (req, res, next) => {
 
 const deletePlaceById = async (req, res, next) => {
     const placeId = req.params.placeId;
+    let place;
+    try{
+        place = await Place.findById(placeId).populate("creator");
+    } catch{
+        return next(new HttpError("Something went wrong, could not find that place", 404));
+    } 
+    console.log(place);
+    let creator;
+    try{
+        creator = await User.findById(place.creator);
+    } catch{
+        return next(new HttpError("Something went wrong, could not find the user relating to that place", 404));
+    }
+    
+    console.log(creator);
+    try{
+        creator.places.pull(place);
+        await creator.save();
+    } catch{
+        return next(new HttpError("Something went wrong, could not save the user relating to that place", 404));
+    }    
+    
     try{
         await Place.findByIdAndDelete(placeId);
     } catch{
@@ -117,3 +156,4 @@ module.exports = {
     updatePlaceById, 
     deletePlaceById 
 };
+
