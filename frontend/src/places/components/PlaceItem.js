@@ -1,19 +1,26 @@
 import React, {useContext, useState} from 'react';
-import { Link } from 'react-router-dom';
+
 import AuthContext from '../../shared/context/auth-context';
 import Map from '../../UI/Map';
 import Modal from '../../UI/Modal';
 import Prompt from '../../UI/Prompt';
+import Actions from './Actions';
 import './PlaceItem.css'
+import Example from './Actions';
 const PlaceItem = (props) => {
     const authCtx = useContext(AuthContext);
     const [showMap, setShowMap] = useState(false);
     const [showPrompt, setShowPrompt] = useState(false);
     const openMapHandler = () => setShowMap(true);
     const closeMapHandler = () => setShowMap(false);
-    const openPromptHandler = () => setShowPrompt(true);
+    const openPromptHandler = (event) => {
+        event.preventDefault();
+        setShowPrompt(true);
+        console.log("HIT");
+    }
     const closePromptHandler = () => setShowPrompt(false);
-    const deletePlaceHandler = () => {
+    const deletePlaceHandler = (event) => {
+        event.preventDefault();
         console.log("Deleting place!");
         closePromptHandler();
         // Send request to backend
@@ -50,35 +57,19 @@ const PlaceItem = (props) => {
                     </div>
                     <div className = "place-info">
                         <div className = "place-address">
-                            {props.place.address}
+                            Location: {props.place.address}
                         </div>
+                        
                         <div className = "place-description">
                             {props.place.description}
                         </div>
                         <div className = "place-actions">
                             <div className = "place-action">
-                                
-                                <button onClick = {openMapHandler} className = "btn btn-primary">View on Google Maps</button>
-                                                           
-                            </div>
-                            {
-                                authCtx.isLoggedIn 
-                                && 
-                                <div className = "place-action">
-                                    <Link to = {`/place/${props.place.id}`}>
-                                        <button className = "btn btn-warning">Edit</button>
-                                    </Link>                                
-                                </div>
-                            }  
-                            {
-                                authCtx.isLoggedIn 
-                                && 
-                                <div className = "place-action">
-                                    <Link>
-                                        <button onClick = {openPromptHandler} className = "btn btn-danger">Delete</button>
-                                    </Link>                            
-                                </div>
-                            }                                                  
+                                <button onClick = {openMapHandler} className = "btn btn-primary">View on Google Maps</button>                     
+                            </div>                               
+                            <div className = "w-56 text-right">
+                                <Actions openPromptHandler = {openPromptHandler} place = {props.place}></Actions>                                                    
+                            </div>                                               
                         </div>
                     </div>
                 </div>           

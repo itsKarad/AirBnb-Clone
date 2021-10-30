@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {CSSTransition} from 'react-transition-group';
+import { Dialog, Transition } from '@headlessui/react'
 import Backdrop from './Backdrop';
 
 import './Prompt.css';

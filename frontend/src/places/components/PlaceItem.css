@@ -9,6 +9,12 @@
     padding: 5%;
     font-size: 1.2rem;
 }
+.place-address{
+    margin-top: 5%;
+    font-weight: 700;
+    margin-bottom: 5%;
+}   
+
 .place-image-container{
     background-size: auto;
     background-repeat: no-repeat;
@@ -28,7 +34,7 @@
     flex-direction: row;
     justify-content: space-evenly;
     margin-top: 5%;
-    margin-bottom: 5%;
+    margin-bottom: 4rem;
     margin-left: 2%;
     margin-right: 2%;
 }

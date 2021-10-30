@@ -41,7 +41,8 @@ button{
 }
 
 .modal-enter {
-    transform: translateY(-10rem);
+    transform: scale(1.5);
+    transition-timing-function: ease-in;
     opacity: 0;
 }
 
