@@ -3,37 +3,43 @@ const DUMMY_USERS = [
         id: "u1",
         name: "karad",
         image: "https://miro.medium.com/fit/c/262/262/0*tIA6HzFlkgwlWOk6.jpg",
-        places: 3
+        places: 3,
+        email: "a@a",
     },
     {
         id: "u2",
         name: "karad",
         image: "https://miro.medium.com/fit/c/262/262/0*tIA6HzFlkgwlWOk6.jpg",
-        places: 3
+        places: 3,
+        email: "a@a",
     },
     {
         id: "u3",
         name: "karad",
         image: "https://miro.medium.com/fit/c/262/262/0*tIA6HzFlkgwlWOk6.jpg",
-        places: 3
+        places: 3,
+        email: "a@a",
     },
     {
         id: "u4",
         name: "karad",
         image: "https://miro.medium.com/fit/c/262/262/0*tIA6HzFlkgwlWOk6.jpg",
-        places: 3
+        places: 3,
+        email: "a@a",
     },
     {
         id: "u5",
         name: "karad",
         image: "https://miro.medium.com/fit/c/262/262/0*tIA6HzFlkgwlWOk6.jpg",
-        places: 3
+        places: 3,
+        email: "a@a",
     },
     {
         id: "u6",
         name: "karad",
         image: "https://miro.medium.com/fit/c/262/262/0*tIA6HzFlkgwlWOk6.jpg",
-        places: 3
+        places: 3,
+        email: "a@a",
     },
 ];
 
@@ -76,4 +82,4 @@ const DUMMY_PLACES = [
     },
 ];
 
-module.exports = DUMMY_PLACES, DUMMY_USERS;
+module.exports = {DUMMY_PLACES, DUMMY_USERS};

@@ -51,9 +51,28 @@ const NewPlace = (props) => {
             value: value, 
         })
     }, []);
-    const formSubmitHandler = (event) => {
+    const formSubmitHandler = async (event) => {
         event.preventDefault();
         console.log(formIsValidState.inputs);
+        const title = formIsValidState.inputs.title.value;
+        const description = formIsValidState.inputs.description.value;
+        const address = formIsValidState.inputs.address.value;
+        const formInputs = {
+            title,
+            description,
+            address,
+        }
+        console.log(formInputs);
+        // send POST request to localhost:5000/places/
+        // with formInputs
+        const response = await fetch('http://localhost:5000/api/places', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(formInputs),
+        });
+        console.log(response);
         // Send this to backend
     }
     return (

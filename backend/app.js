@@ -3,14 +3,22 @@ const express = require("express");
 const app = express();
 const placesRoutes = require("./routes/places");
 const usersRoutes = require("./routes/users");
+const HttpError = require("./models/http-error");
 
 // Middleware
+app.use(express.json());
 app.use(express.urlencoded({extended:true}));
-app.use(express.static(__dirname + '/views/'));
+
 
 // Routes
 app.use("/api", usersRoutes);
 app.use("/api", placesRoutes);
+
+// Only runs if no response is sent from either of the routes
+app.use((req, res, next) => {
+    const error = new HttpError("Could not find this route.", 404);
+    throw error;
+});
 
 // Error handling middle-ware (4 args)
 // Express applies to all incoming requests
