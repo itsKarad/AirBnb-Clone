@@ -40,7 +40,8 @@ const PlaceItem = (props) => {
         }              
     }
     console.log(props.place);
-
+    const imageLink = "http://localhost:5000/"+props.place.image;
+    console.log(imageLink);
     return (        
         <React.Fragment>
             <Modal 
@@ -66,11 +67,12 @@ const PlaceItem = (props) => {
             </Prompt>
             <div className = "place-container col-sm-12 col-md-6">
                 <div className = "place-item">
-                    <div className = "place-image-container" style = {{
-                        backgroundImage : `linear-gradient(to bottom, rgba(255, 255, 255, 0.25), rgba(0, 0, 0, 0.64)),url('${props.place.image}')`                   
-                    }}>
-                        {props.place.title}
+                    <div className = "place-image-container" >
+                        <img alt = "Place pic" src = {imageLink} class = "place-image"></img>
                     </div>
+                    <div className = "place-title">
+                        {props.place.title}
+                    </div>                    
                     <div className = "place-info">
                         <div className = "place-address">
                             Location: {props.place.address}

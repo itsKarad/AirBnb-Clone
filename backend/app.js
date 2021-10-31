@@ -1,4 +1,6 @@
 // Imports
+const fs = require('fs');
+const path = require('path');
 const express = require("express");
 const app = express();
 const placesRoutes = require("./routes/places");
@@ -17,6 +19,8 @@ connectDB();
 // Middleware
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
+// for statically serving images
+app.use("/uploads/images", express.static(path.join("uploads", "images")));
 app.use((req, res, next) => {
     // Adding headers before forwarding
     // Which domains should be allowed?
@@ -49,6 +53,12 @@ app.use((req, res, next) => {
 // Express applies to all incoming requests
 app.use((error, req, res, next) => {   
     // If response is already sent, don't send another one, forward
+    // If request failed, delete the file which was uploaded
+    if(req.file){
+        fs.unlink(req.file.path, err => {
+            console.log(err);
+        });
+    }
     if(req.headerSent){
         return next(error);
     }

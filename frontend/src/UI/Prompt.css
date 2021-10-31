@@ -41,8 +41,8 @@ button{
 }
 
 .modal-enter {
-    transform: scale(1.5);
-    transition-timing-function: ease-in;
+    transform: scale(0.7);
+    transition-timing-function: ease-in-out;
     opacity: 0;
 }
 
@@ -58,8 +58,8 @@ button{
 }
 
 .modal-exit-active {
-    transform: translateY(-10rem);
+    transform: translateY(-7rem);
     opacity: 0;
-    transition: all 200ms;
+    transition: all 350ms;
 }
   

@@ -2,6 +2,7 @@ import React, {useCallback, useReducer} from 'react';
 import { useHistory } from 'react-router';
 import useHttp from '../../hooks/use-http';
 import ErrorModal from '../../shared/components/ErrorModal';
+import ImageUpload from '../../UI/ImageUpload';
 import Input from '../../UI/Input';
 import './NewPlace.css';
 
@@ -45,6 +46,10 @@ const NewPlace = (props) => {
                 value: "",
                 isValid: false,
             },
+            photo: {
+                value: null,
+                isValid: false,
+            }
         },
         isValid:false,
     });
@@ -58,19 +63,18 @@ const NewPlace = (props) => {
     }, []);
     const formSubmitHandler = async (event) => {
         event.preventDefault();
-        console.log(formIsValidState.inputs);
+        //console.log(formIsValidState.inputs);
         try{
+            const formData = new FormData();
+            formData.append("title", formIsValidState.inputs.title.value);
+            formData.append("description", formIsValidState.inputs.description.value);
+            formData.append("address", formIsValidState.inputs.address.value);
+            formData.append("image", formIsValidState.inputs.photo.value);
+            console.log(formData);
             const data = await sendRequest({
                 url: "http://localhost:5000/api/places",
                 method: "POST",
-                headers:{
-                    "Content-Type": "application/json"
-                },
-                body: {
-                    title: formIsValidState.inputs.title.value,
-                    description: formIsValidState.inputs.description.value,
-                    address:formIsValidState.inputs.address.value,
-                }
+                body: formData,
             });            
             console.log(data);
             history.push(`/`);
@@ -121,6 +125,12 @@ const NewPlace = (props) => {
                         errorText = "Address must not be empty!"
                         onInput = {inputChangeHandler}
                         ></Input>
+                    <ImageUpload
+                        id = "photo"
+                        label = "Photo"
+                        onInput = {inputChangeHandler}
+                    
+                    ></ImageUpload>
                     <button disabled = {!formIsValidState.isValid} onClick = {formSubmitHandler} className = "btn btn-primary">Submit</button>
                 </form>
             </div>

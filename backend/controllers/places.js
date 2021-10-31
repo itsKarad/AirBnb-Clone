@@ -4,6 +4,7 @@ const { validationResult} = require("express-validator")
 const getCoordinates = require("../util/location");
 const Place = require("../models/place");
 const User = require("../models/user");
+const fs = require("fs");
 
 const getPlaceById = async (req, res, next) => {
     const placeId = req.params.placeId;
@@ -44,7 +45,7 @@ const createPlace = async(req, res, next) => {
     }
 
     const {title, description, address} = req.body;
-    const creator = "617d88297eada32e4d9de524";
+    const creator = "617eae949c5318bd0fa3a70b";
     let coordinates;
     try{
         coordinates = await getCoordinates(address);
@@ -57,7 +58,7 @@ const createPlace = async(req, res, next) => {
         description,
         address,
         location: coordinates,
-        image: "https://upload.wikimedia.org/wikipedia/commons/4/48/Goa_beautiful_beach.JPG",
+        image: req.file.path.replace("\\", "/"),
         creator,
     });
     let existingUser;
@@ -77,9 +78,7 @@ const createPlace = async(req, res, next) => {
         return next(new HttpError("Creating place failed, please try again", 500));
     }
     try{
-        console.log(existingUser);        
-        existingUser.places.push(newPlace);
-        console.log(existingUser);
+        existingUser.places.push(newPlace);        
         await existingUser.save();
     } catch{
         return next(new HttpError("Could not save user", 404));
@@ -127,6 +126,8 @@ const deletePlaceById = async (req, res, next) => {
     } catch{
         return next(new HttpError("Something went wrong, could not find that place", 404));
     } 
+    const imagePath = place.image;
+
     console.log(place);
     let creator;
     try{
@@ -145,8 +146,17 @@ const deletePlaceById = async (req, res, next) => {
     
     try{
         await Place.findByIdAndDelete(placeId);
+        
     } catch{
         return next(new HttpError("Something went wrong, could not delete place", 404));
+    }
+    try{
+        fs.unlink(imagePath, err => {
+            console.log(err);
+        });
+    }
+    catch{
+
     }
     
     res.status(201).json({message: "Place was successfully deleted!"});

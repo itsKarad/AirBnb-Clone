@@ -8,7 +8,7 @@ const UserItem = (props) => {
         <div className = "user-item-container col-sm-6 col-md-4">
             <div className = "user-item">
                 <div className = "user-photo">
-                    <img src = {props.user.image} alt = "Profile pic"></img>
+                    <img src = {`http://localhost:5000/${props.user.image}`} alt = "Profile pic"></img>
                 </div>
                 <Link to = {`/${props.user.id}/places`}>
                     <div className = "user-info">

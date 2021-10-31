@@ -4,6 +4,7 @@ import useHttp from '../hooks/use-http';
 import ErrorModal from '../shared/components/ErrorModal';
 import LoadingSpinner from '../shared/components/LoadingSpinner';
 import AuthContext from '../shared/context/auth-context';
+import ImageUpload from '../UI/ImageUpload';
 import Input from '../UI/Input';
 import './Auth.css';
 
@@ -46,6 +47,10 @@ const SignUp = (props) => {
             name:{
                 value: "",
                 isValid: false,
+            },
+            photo:{
+                value: null,
+                isValid: false,
             }
         },
         isValid:false,
@@ -60,19 +65,18 @@ const SignUp = (props) => {
     }, []);
     const formSubmitHandler = async(event) => {
         event.preventDefault();
-        console.log(formIsValidState.inputs.name.value, formIsValidState.inputs.email.value, formIsValidState.inputs.password.value)
+        console.log(formIsValidState.inputs);
         try{
+            const formData = new FormData();
+            formData.append("email", formIsValidState.inputs.email.value);
+            formData.append("password", formIsValidState.inputs.password.value);
+            formData.append("name", formIsValidState.inputs.name.value);
+            formData.append("image", formIsValidState.inputs.photo.value);
+            console.log(formData);
             await sendRequest({
                 url: "http://localhost:5000/api/users/signup",
                 method: "POST",
-                headers:{
-                    "Content-Type": "application/json"
-                },
-                body: {
-                    name: formIsValidState.inputs.name.value,
-                    email: formIsValidState.inputs.email.value,
-                    password:formIsValidState.inputs.password.value,
-                }
+                body: formData,
             });
             authCtx.login();
         } 
@@ -91,10 +95,8 @@ const SignUp = (props) => {
                 onClear = {resetError}
                 >
 
-            </ErrorModal>
-            
+            </ErrorModal>            
             <div className = "auth-form-container">
-                
                 <form>
                     <Input 
                         element = "input" 
@@ -120,6 +122,12 @@ const SignUp = (props) => {
                         errorText = "Password must be more than 6 characters."
                         onInput = {inputChangeHandler}
                     ></Input>
+
+                    <ImageUpload 
+                        label = "Profile Photo"
+                        id = "photo"
+                        onInput = {inputChangeHandler}
+                    ></ImageUpload>
                     <button onClick = {formSubmitHandler} disabled = {!formIsValidState.isValid} className = "btn btn-primary">Sign up!</button>
                     {isLoading && <LoadingSpinner asOverlay = "true"></LoadingSpinner>}
                     <p>{error}</p>

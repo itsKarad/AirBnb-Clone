@@ -1,6 +1,7 @@
 const HttpError = require("../models/http-error");
 const { validationResult} = require("express-validator");
 const User = require("../models/user.js");
+const fileUpload = require("../middleware/file-upload");
 
 const getAllUsers = async(req, res, next) => {
     let users;
@@ -36,7 +37,7 @@ const createNewUser = async (req, res, next) => {
     const newUser = new User({
         name,
         email,
-        image: "https://d3bzyjrsc4233l.cloudfront.net/news/Harold.jpg",
+        image: req.file.path,
         password,
         places: [],
     });

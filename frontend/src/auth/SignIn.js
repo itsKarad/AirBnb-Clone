@@ -64,10 +64,10 @@ const SignIn = (props) => {
                 headers:{
                     "Content-Type": "application/json"
                 },
-                body: {
+                body: JSON.stringify({
                     email: formIsValidState.inputs.email.value,
                     password:formIsValidState.inputs.password.value,
-                }
+                })
             });
             authCtx.login();
         } 

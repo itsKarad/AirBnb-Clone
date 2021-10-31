@@ -15,7 +15,9 @@ const UsersList = (props) => {
     }
     else{
         usersListContent = props.users.map((user) => {
-            return <UserItem key = {user.id} user = {user}></UserItem>
+            return(                
+                <UserItem key = {user.id} user = {user}></UserItem>
+            ) 
         })
     }
     return (
