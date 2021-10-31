@@ -80,7 +80,7 @@ const UpdatePlace = (props) => {
     }
 
     const placeId = useParams().placeId;
-    const {isLoading, sendRequest, error, resetError} = useHttp();
+    const {isLoading, sendRequest } = useHttp();
         
     useEffect(() => {
         const fetchPlace = async() => {
@@ -94,7 +94,7 @@ const UpdatePlace = (props) => {
             }
         }
         fetchPlace();
-    }, [sendRequest]);
+    }, [sendRequest, placeId]);
     if(!place && !isLoading){
         return (
             <div className = "new-place-container container">

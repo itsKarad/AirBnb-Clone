@@ -9,7 +9,7 @@ import './UserPlaces.css';
 const UserPlaces = (props) => {
     const userId = useParams().userId;
     const [places, setPlaces] = useState(null);
-    const { isLoading, sendRequest, error, resetError } = useHttp();
+    const { isLoading, sendRequest } = useHttp();
     useEffect(() => {
         const fetchPlaces = async () => {
             try{
@@ -24,7 +24,7 @@ const UserPlaces = (props) => {
             }            
         }
         fetchPlaces();
-    }, [sendRequest]);
+    }, [sendRequest, userId]);
     const deletePlaceHandler = (deletedPlaceId) => {
         setPlaces(prevPlaces => prevPlaces.filter(place => place.id !== deletedPlaceId));
     };

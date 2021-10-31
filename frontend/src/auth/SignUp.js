@@ -1,4 +1,4 @@
-import React, {useCallback, useState, useContext, useReducer} from 'react';
+import React, {useCallback, useContext, useReducer} from 'react';
 import { Link } from 'react-router-dom';
 import useHttp from '../hooks/use-http';
 import ErrorModal from '../shared/components/ErrorModal';
@@ -62,7 +62,7 @@ const SignUp = (props) => {
         event.preventDefault();
         console.log(formIsValidState.inputs.name.value, formIsValidState.inputs.email.value, formIsValidState.inputs.password.value)
         try{
-            const data = await sendRequest({
+            await sendRequest({
                 url: "http://localhost:5000/api/users/signup",
                 method: "POST",
                 headers:{

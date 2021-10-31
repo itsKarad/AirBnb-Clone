@@ -11,11 +11,15 @@ import SignIn from './auth/SignIn';
 import SignUp from './auth/SignUp';
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [userId, setUserId] = useState(null);
+
   const login = useCallback(() => {
     setIsLoggedIn(true);
+    setUserId("617d88297eada32e4d9de524");
   }, []);
   const logout = useCallback(() => {
     setIsLoggedIn(false);
+    setUserId(null);
   }, []);
   let routes;
   if(isLoggedIn){
@@ -62,7 +66,7 @@ function App() {
     );
   }
   return (
-    <AuthContext.Provider value = {{isLoggedIn: isLoggedIn, login: login, logout: logout}}>
+    <AuthContext.Provider value = {{isLoggedIn: isLoggedIn, userId: userId, login: login, logout: logout}}>
       <div className = "app-container">
         <Router>
           <Navbar />

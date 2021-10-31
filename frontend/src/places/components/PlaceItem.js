@@ -4,15 +4,12 @@ import AuthContext from '../../shared/context/auth-context';
 import Map from '../../UI/Map';
 import Modal from '../../UI/Modal';
 import Prompt from '../../UI/Prompt';
-import Actions from './Actions';
 import './PlaceItem.css'
-import Example from './Actions';
 import useHttp from '../../hooks/use-http';
-import LoadingSpinner from '../../shared/components/LoadingSpinner';
 
 const PlaceItem = (props) => {
     const authCtx = useContext(AuthContext);
-    const {isLoading, error, resetError, sendRequest} = useHttp();
+    const {isLoading, sendRequest} = useHttp();
     const [showMap, setShowMap] = useState(false);
     const [showPrompt, setShowPrompt] = useState(false);
     const openMapHandler = () => setShowMap(true);
@@ -42,6 +39,8 @@ const PlaceItem = (props) => {
 
         }              
     }
+    console.log(props.place);
+
     return (        
         <React.Fragment>
             <Modal 
@@ -68,7 +67,7 @@ const PlaceItem = (props) => {
             <div className = "place-container col-sm-12 col-md-6">
                 <div className = "place-item">
                     <div className = "place-image-container" style = {{
-                        backgroundImage : `linear-gradient(to bottom, rgba(255, 255, 255, 0.25), rgba(0, 0, 0, 0.84)),url(${props.place.image})`                   
+                        backgroundImage : `linear-gradient(to bottom, rgba(255, 255, 255, 0.25), rgba(0, 0, 0, 0.64)),url('${props.place.image}')`                   
                     }}>
                         {props.place.title}
                     </div>
@@ -79,19 +78,27 @@ const PlaceItem = (props) => {
                         
                         <div className = "place-description">
                             {props.place.description}
+                            {isLoading && <p>Deleting... </p>}
                         </div>
+
                         <div className = "place-actions">
                             <div className = "place-action">
                                 <button onClick = {openMapHandler} className = "btn btn-primary">View on Google Maps</button>                     
                             </div> 
-                            <div className = "place-action">
-                                <Link to = {`/place/${props.place.id}`} className="btn btn-warning">
-                                    <button>Edit</button>
-                                </Link>
-                            </div>
-                            <div className = "place-action">
-                                <button onClick = {openPromptHandler} className = "btn btn-danger">Delete</button>                     
-                            </div>                                                                            
+                            {
+                                authCtx.isLoggedIn && authCtx.userId === props.place.creator &&
+                                <div className = "place-action">
+                                    <Link to = {`/place/${props.place.id}`} className="btn btn-warning">
+                                        Edit
+                                    </Link>
+                                </div>
+                            }
+                            {
+                                authCtx.isLoggedIn && authCtx.userId === props.place.creator &&
+                                <div className = "place-action">
+                                    <button onClick = {openPromptHandler} className = "btn btn-danger">Delete</button>                     
+                                </div>
+                            }                                                                                          
                         </div>
                     </div>
                 </div>           

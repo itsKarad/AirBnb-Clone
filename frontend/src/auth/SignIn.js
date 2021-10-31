@@ -1,4 +1,4 @@
-import React, {useCallback, useContext, useReducer, useState} from 'react';
+import React, {useCallback, useContext, useReducer} from 'react';
 import { Link } from 'react-router-dom';
 import useHttp from '../hooks/use-http';
 import AuthContext from '../shared/context/auth-context';
@@ -58,7 +58,7 @@ const SignIn = (props) => {
         event.preventDefault();
         console.log(formIsValidState.inputs.email.value, formIsValidState.inputs.password.value);
         try{
-            const data = await sendRequest({
+            await sendRequest({
                 url: "http://localhost:5000/api/users/login",
                 method: "POST",
                 headers:{

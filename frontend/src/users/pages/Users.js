@@ -6,7 +6,7 @@ import './Users.css';
 
 const Users = (props) => {
     const [users, setUsers] = useState(null);
-    const { isLoading, sendRequest, error, resetError } = useHttp();
+    const { isLoading, sendRequest, error } = useHttp();
     useEffect(() => {
         const fetchUsers = async () => {
             try{
