@@ -26,7 +26,7 @@ const Navbar = (props) => {
                     {
                         authCtx.isLoggedIn &&
                         <li className="nav-item">
-                            <NavLink className = "nav-link" to = "/u1/places">My Places</NavLink>
+                            <NavLink className = "nav-link" to = {`/${authCtx.userId}/places`}>My Places</NavLink>
                         </li>
                     }
                     <li className="nav-item">
@@ -35,7 +35,7 @@ const Navbar = (props) => {
                     {
                         !authCtx.isLoggedIn && 
                         <li className="nav-item">
-                            <NavLink className = "nav-link" to = "/login">Login</NavLink>
+                            <NavLink className = "nav-link" to = "/sign-in">Login</NavLink>
                         </li>
                     }
                     {

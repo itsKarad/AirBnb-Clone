@@ -1,53 +1,41 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
+import useHttp from '../../hooks/use-http';
 import Card from '../../UI/Card';
 import UsersList from '../components/UsersList';
 import './Users.css';
-const DUMMY_USERS = [
-    {
-        id: "u1",
-        name: "karad",
-        image: "https://miro.medium.com/fit/c/262/262/0*tIA6HzFlkgwlWOk6.jpg",
-        places: 3
-    },
-    {
-        id: "u2",
-        name: "karad",
-        image: "https://miro.medium.com/fit/c/262/262/0*tIA6HzFlkgwlWOk6.jpg",
-        places: 3
-    },
-    {
-        id: "u3",
-        name: "karad",
-        image: "https://miro.medium.com/fit/c/262/262/0*tIA6HzFlkgwlWOk6.jpg",
-        places: 3
-    },
-    {
-        id: "u4",
-        name: "karad",
-        image: "https://miro.medium.com/fit/c/262/262/0*tIA6HzFlkgwlWOk6.jpg",
-        places: 3
-    },
-    {
-        id: "u5",
-        name: "karad",
-        image: "https://miro.medium.com/fit/c/262/262/0*tIA6HzFlkgwlWOk6.jpg",
-        places: 3
-    },
-    {
-        id: "u6",
-        name: "karad",
-        image: "https://miro.medium.com/fit/c/262/262/0*tIA6HzFlkgwlWOk6.jpg",
-        places: 3
-    },
-];
 
 const Users = (props) => {
+    const [users, setUsers] = useState(null);
+    const { isLoading, sendRequest, error, resetError } = useHttp();
+    useEffect(() => {
+        const fetchUsers = async () => {
+            try{
+                const data = await sendRequest({
+                    url: "http://localhost:5000/api/users"
+                });
+                console.log(data);
+                setUsers(data.users);
+            }
+            catch(err){
+                console.log(err);
+            }            
+        }
+        fetchUsers();
+    }, [sendRequest])
+    
     return (
         <div className = "users-page-container container">
             <h1 className = "users-header">Our Users</h1>
-            <Card>
-                <UsersList users = {DUMMY_USERS}></UsersList>
-            </Card>
+            {isLoading && <p>Loading...</p>}
+            {!isLoading && error && <p>{error}</p>}
+            
+            {
+                !isLoading && 
+                <Card>
+                    <UsersList users = {users}></UsersList>
+                </Card>
+            }
+            
             
         </div>
         

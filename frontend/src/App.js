@@ -6,8 +6,9 @@ import './App.css';
 import Navbar from './shared/components/Navbar';
 import UserPlaces from './places/pages/UserPlaces';
 import UpdatePlace from './places/pages/UpdatePlace';
-import Auth from './auth/Auth';
 import AuthContext from './shared/context/auth-context';
+import SignIn from './auth/SignIn';
+import SignUp from './auth/SignUp';
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const login = useCallback(() => {
@@ -47,13 +48,16 @@ function App() {
         <Route path = "/users" exact>
           <Users></Users>
         </Route>
-        <Route path = "/login">
-          <Auth></Auth>
+        <Route path = "/sign-in">
+          <SignIn></SignIn>
+        </Route>
+        <Route path = "/sign-up">
+          <SignUp></SignUp>
         </Route>
         <Route path = "/:userId/places" exact>
           <UserPlaces></UserPlaces>
         </Route>
-        <Redirect to = "/"></Redirect>
+        <Redirect to = "/sign-in"></Redirect>
       </Switch>
     );
   }

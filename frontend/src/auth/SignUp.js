@@ -1,4 +1,8 @@
-import React, {useCallback, useContext, useReducer} from 'react';
+import React, {useCallback, useState, useContext, useReducer} from 'react';
+import { Link } from 'react-router-dom';
+import useHttp from '../hooks/use-http';
+import ErrorModal from '../shared/components/ErrorModal';
+import LoadingSpinner from '../shared/components/LoadingSpinner';
 import AuthContext from '../shared/context/auth-context';
 import Input from '../UI/Input';
 import './Auth.css';
@@ -27,6 +31,7 @@ const formReducer = (state, action) => {
 }
 
 const SignUp = (props) => {
+    const {isLoading, error, sendRequest, resetError} = useHttp();
     const authCtx = useContext(AuthContext);
     const [formIsValidState, dispatch] = useReducer(formReducer, {
         inputs:{
@@ -53,42 +58,79 @@ const SignUp = (props) => {
             value: value, 
         })
     }, []);
-    const formSubmitHandler = (event) => {
+    const formSubmitHandler = async(event) => {
         event.preventDefault();
-        console.log(formIsValidState.inputs);
-        authCtx.login();
-        // Send this to backend
+        console.log(formIsValidState.inputs.name.value, formIsValidState.inputs.email.value, formIsValidState.inputs.password.value)
+        try{
+            const data = await sendRequest({
+                url: "http://localhost:5000/api/users/signup",
+                method: "POST",
+                headers:{
+                    "Content-Type": "application/json"
+                },
+                body: {
+                    name: formIsValidState.inputs.name.value,
+                    email: formIsValidState.inputs.email.value,
+                    password:formIsValidState.inputs.password.value,
+                }
+            });
+            authCtx.login();
+        } 
+        catch(err){
+            console.log(err);
+        }       
     }
     return (
-        <div className = "auth-form-container">
-            <form>
-                <Input 
-                    element = "input" 
-                    id = "email" 
-                    type = "email" 
-                    label = "E-mail"
-                    errorText = "Please provide a valid email."
-                    onInput = {inputChangeHandler}
-                ></Input>
-                <Input 
-                    element = "input" 
-                    id = "name" 
-                    type = "text" 
-                    label = "Your name"
-                    errorText = "Name cannot be empty!"
-                    onInput = {inputChangeHandler}
-                ></Input>
-                <Input 
-                    element = "input" 
-                    id = "password" 
-                    type = "password" 
-                    label = "Password"
-                    errorText = "Password must be more than 6 characters."
-                    onInput = {inputChangeHandler}
-                ></Input>
-                <button onClick = {formSubmitHandler} disabled = {!formIsValidState.isValid} className = "btn btn-primary">Sign up!</button>
-            </form>    
-        </div>
+        <div className = "auth-container conatiner">
+            <div className = "auth-header">
+                Sign Up
+                
+            </div>
+            <ErrorModal 
+                error = {error}
+                onClear = {resetError}
+                >
+
+            </ErrorModal>
+            
+            <div className = "auth-form-container">
+                
+                <form>
+                    <Input 
+                        element = "input" 
+                        id = "email" 
+                        type = "email" 
+                        label = "E-mail"
+                        errorText = "Please provide a valid email."
+                        onInput = {inputChangeHandler}
+                    ></Input>
+                    <Input 
+                        element = "input" 
+                        id = "name" 
+                        type = "text" 
+                        label = "Your name"
+                        errorText = "Name cannot be empty!"
+                        onInput = {inputChangeHandler}
+                    ></Input>
+                    <Input 
+                        element = "input" 
+                        id = "password" 
+                        type = "password" 
+                        label = "Password"
+                        errorText = "Password must be more than 6 characters."
+                        onInput = {inputChangeHandler}
+                    ></Input>
+                    <button onClick = {formSubmitHandler} disabled = {!formIsValidState.isValid} className = "btn btn-primary">Sign up!</button>
+                    {isLoading && <LoadingSpinner asOverlay = "true"></LoadingSpinner>}
+                    <p>{error}</p>
+                </form>    
+                <div className = "auth-form-footer">
+                    <p>Already have an account?</p>
+                    <Link class = "btn btn-outline-primary" to = "/sign-in">Switch to Sign-in</Link>
+                </div>
+            </div>
+            
+        </div>        
     );
 };
 

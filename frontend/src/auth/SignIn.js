@@ -1,6 +1,10 @@
-import React, {useCallback, useContext, useReducer} from 'react';
+import React, {useCallback, useContext, useReducer, useState} from 'react';
+import { Link } from 'react-router-dom';
+import useHttp from '../hooks/use-http';
 import AuthContext from '../shared/context/auth-context';
 import Input from '../UI/Input';
+import ErrorModal from '../shared/components/ErrorModal';
+import LoadingSpinner from '../shared/components/LoadingSpinner';
 import './Auth.css';
 
 const formReducer = (state, action) => {
@@ -27,6 +31,7 @@ const formReducer = (state, action) => {
 }
 
 const SignIn = (props) => {
+    const {isLoading, error, sendRequest, resetError} = useHttp();
     const authCtx = useContext(AuthContext);
     const [formIsValidState, dispatch] = useReducer(formReducer, {
         inputs:{
@@ -49,36 +54,69 @@ const SignIn = (props) => {
             value: value, 
         })
     }, []);
-    const formSubmitHandler = (event) => {
+    const formSubmitHandler = async(event) => {
         event.preventDefault();
-        console.log(formIsValidState.inputs);
-        authCtx.login();
-        // Send this to backend
+        console.log(formIsValidState.inputs.email.value, formIsValidState.inputs.password.value);
+        try{
+            const data = await sendRequest({
+                url: "http://localhost:5000/api/users/login",
+                method: "POST",
+                headers:{
+                    "Content-Type": "application/json"
+                },
+                body: {
+                    email: formIsValidState.inputs.email.value,
+                    password:formIsValidState.inputs.password.value,
+                }
+            });
+            authCtx.login();
+        } 
+        catch(err){
+            console.log(err);
+        }   
     }
     return (
-        <div className = "auth-form-container">
-            <form>
-                <Input 
-                    element = "input" 
-                    id = "email" 
-                    type = "email" 
-                    label = "E-mail"
-                    className = "form-control"
-                    errorText = "Please provide a valid email."
-                    onInput = {inputChangeHandler}
-                ></Input>
-                <Input 
-                    element = "input" 
-                    id = "password" 
-                    type = "password" 
-                    label = "Password"
-                    className = "form-control"
-                    errorText = "Password must be more than 6 characters."
-                    onInput = {inputChangeHandler}
-                ></Input>
+        <div className = "auth-container conatiner">
+            <div className = "auth-header">
+                Sign In
+            </div>          
+            <ErrorModal 
+                error = {error}
+                onClear = {resetError}
+                >   
+            </ErrorModal>
+            <div className = "auth-form-container">
+                <form>
+                    <Input 
+                        element = "input" 
+                        id = "email" 
+                        type = "email" 
+                        label = "E-mail"
+                        className = "form-control"
+                        errorText = "Please provide a valid email."
+                        onInput = {inputChangeHandler}
+                    ></Input>
+                    <Input 
+                        element = "input" 
+                        id = "password" 
+                        type = "password" 
+                        label = "Password"
+                        className = "form-control"
+                        errorText = "Password must be more than 6 characters."
+                        onInput = {inputChangeHandler}
+                    ></Input>
 
-                <button onClick = {formSubmitHandler} disabled = {!formIsValidState.isValid} className = "btn btn-primary">Log In</button>
-            </form>       
+                    <button onClick = {formSubmitHandler} disabled = {!formIsValidState.isValid} className = "btn btn-primary">Log In</button>
+                </form>  
+                <div className = "auth-form-footer">
+                    <p>Don't have an account?</p>
+                    <Link class = "btn btn-outline-primary" to = "/sign-up">Switch to Sign-up</Link>
+                </div>
+                
+                {/* <button onClick = {switchModeHandler} className = "btn btn-outline-warning">Switch to {showLogin? "Sign-up" : "Sign In"}?</button> */}
+                {isLoading && <LoadingSpinner asOverlay = "true"></LoadingSpinner>}
+                <p>{error}</p>
+            </div>
         </div>
     );
 };

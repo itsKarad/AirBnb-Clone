@@ -16,6 +16,7 @@ const getPlaceById = async (req, res, next) => {
     if(!place){
         next(new HttpError("Could not find place for the provided id", 404));
     }
+    console.log(place);
     res.status(201).json({place: place.toObject({getters: true})});
 };
 
@@ -39,11 +40,11 @@ const createPlace = async(req, res, next) => {
     const errors = validationResult(req);
     if(!errors.isEmpty()){
         console.log(errors);
-        next(new HttpError("Invalid inputs passed, please check your data", 422));
+        return next(new HttpError("Invalid inputs passed, please check your data", 422));
     }
 
     const {title, description, address} = req.body;
-    const creator = "617d4b34bcea260a6cdf144d";
+    const creator = "617d88297eada32e4d9de524";
     let coordinates;
     try{
         coordinates = await getCoordinates(address);
@@ -76,7 +77,9 @@ const createPlace = async(req, res, next) => {
         return next(new HttpError("Creating place failed, please try again", 500));
     }
     try{
+        console.log(existingUser);        
         existingUser.places.push(newPlace);
+        console.log(existingUser);
         await existingUser.save();
     } catch{
         return next(new HttpError("Could not save user", 404));

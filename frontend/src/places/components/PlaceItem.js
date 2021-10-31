@@ -1,5 +1,5 @@
 import React, {useContext, useState} from 'react';
-
+import { Link } from 'react-router-dom';
 import AuthContext from '../../shared/context/auth-context';
 import Map from '../../UI/Map';
 import Modal from '../../UI/Modal';
@@ -7,8 +7,12 @@ import Prompt from '../../UI/Prompt';
 import Actions from './Actions';
 import './PlaceItem.css'
 import Example from './Actions';
+import useHttp from '../../hooks/use-http';
+import LoadingSpinner from '../../shared/components/LoadingSpinner';
+
 const PlaceItem = (props) => {
     const authCtx = useContext(AuthContext);
+    const {isLoading, error, resetError, sendRequest} = useHttp();
     const [showMap, setShowMap] = useState(false);
     const [showPrompt, setShowPrompt] = useState(false);
     const openMapHandler = () => setShowMap(true);
@@ -18,12 +22,25 @@ const PlaceItem = (props) => {
         setShowPrompt(true);
         console.log("HIT");
     }
+
     const closePromptHandler = () => setShowPrompt(false);
-    const deletePlaceHandler = (event) => {
+    const deletePlaceHandler = async (event) => {
         event.preventDefault();
         console.log("Deleting place!");
         closePromptHandler();
-        // Send request to backend
+        try{
+            const response = await sendRequest({
+                url: `http://localhost:5000/api/place/${props.place.id}`,
+                method: "DELETE",
+                headers:{
+                    "Content-Type": "application/json"
+                },
+            });
+            console.log(response);
+            props.onDelete(props.place.id);
+        } catch{
+
+        }              
     }
     return (        
         <React.Fragment>
@@ -66,10 +83,15 @@ const PlaceItem = (props) => {
                         <div className = "place-actions">
                             <div className = "place-action">
                                 <button onClick = {openMapHandler} className = "btn btn-primary">View on Google Maps</button>                     
-                            </div>                               
-                            <div className = "w-56 text-right">
-                                <Actions openPromptHandler = {openPromptHandler} place = {props.place}></Actions>                                                    
-                            </div>                                               
+                            </div> 
+                            <div className = "place-action">
+                                <Link to = {`/place/${props.place.id}`} className="btn btn-warning">
+                                    <button>Edit</button>
+                                </Link>
+                            </div>
+                            <div className = "place-action">
+                                <button onClick = {openPromptHandler} className = "btn btn-danger">Delete</button>                     
+                            </div>                                                                            
                         </div>
                     </div>
                 </div>           

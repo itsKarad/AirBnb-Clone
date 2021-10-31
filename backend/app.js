@@ -17,7 +17,23 @@ connectDB();
 // Middleware
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
+app.use((req, res, next) => {
+    // Adding headers before forwarding
+    // Which domains should be allowed?
+    res.setHeader("Access-Control-Allow-Origin", "*");
+    // Which methods should be allowed?
+    res.setHeader(
+        "Access-Control-Allow-Methods",
+        "GET, POST, PATCH, DELETE, OPTIONS"
+    );
+    // Which headers should be allowed?
+    res.setHeader(
+        "Access-Control-Allow-Headers",
+        "Content-Type, Authorization"
+    );
 
+    next();
+});
 
 // Routes
 app.use("/api", usersRoutes);

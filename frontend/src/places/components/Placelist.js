@@ -18,7 +18,7 @@ const PlaceList = (props) => {
     }
     else{
         placesContent = props.places.map((place) => {
-            return <PlaceItem key = {place.id} place = {place}></PlaceItem>
+            return <PlaceItem key = {place.id} place = {place} onDelete = {props.onDelete}></PlaceItem>
         });
     }
     return (

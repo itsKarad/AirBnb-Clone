@@ -1,4 +1,7 @@
 import React, {useCallback, useReducer} from 'react';
+import { useHistory } from 'react-router';
+import useHttp from '../../hooks/use-http';
+import ErrorModal from '../../shared/components/ErrorModal';
 import Input from '../../UI/Input';
 import './NewPlace.css';
 
@@ -26,6 +29,8 @@ const formReducer = (state, action) => {
 };
 
 const NewPlace = (props) => {
+    const history = useHistory();
+    const {isLoading, error, sendRequest, resetError} = useHttp();
     const [formIsValidState, dispatch] = useReducer(formReducer, {
         inputs:{
             title:{
@@ -54,32 +59,37 @@ const NewPlace = (props) => {
     const formSubmitHandler = async (event) => {
         event.preventDefault();
         console.log(formIsValidState.inputs);
-        const title = formIsValidState.inputs.title.value;
-        const description = formIsValidState.inputs.description.value;
-        const address = formIsValidState.inputs.address.value;
-        const formInputs = {
-            title,
-            description,
-            address,
-        }
-        console.log(formInputs);
-        // send POST request to localhost:5000/places/
-        // with formInputs
-        const response = await fetch('http://localhost:5000/api/places', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(formInputs),
-        });
-        console.log(response);
-        // Send this to backend
+        try{
+            const data = await sendRequest({
+                url: "http://localhost:5000/api/places",
+                method: "POST",
+                headers:{
+                    "Content-Type": "application/json"
+                },
+                body: {
+                    title: formIsValidState.inputs.title.value,
+                    description: formIsValidState.inputs.description.value,
+                    address:formIsValidState.inputs.address.value,
+                }
+            });            
+            console.log(data);
+            history.push(`/`);
+        } 
+        catch(err){
+            console.log(err);
+        } 
     }
     return (
         <div className = "add-place-container container">
             <div className = "add-place-header">
                 Add your place
             </div>
+            <ErrorModal 
+                error = {error}
+                onClear = {resetError}
+                >
+
+            </ErrorModal>
             <div className = "add-place-form-container">
                 <form className = "add-place-form">
                     <Input 
@@ -114,7 +124,7 @@ const NewPlace = (props) => {
                     <button disabled = {!formIsValidState.isValid} onClick = {formSubmitHandler} className = "btn btn-primary">Submit</button>
                 </form>
             </div>
-
+            {isLoading && <p>Loading...</p>}
         </div>
     );
 };
