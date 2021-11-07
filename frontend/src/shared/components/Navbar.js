@@ -35,7 +35,13 @@ const Navbar = (props) => {
                     {
                         !authCtx.isLoggedIn && 
                         <li className="nav-item">
-                            <NavLink className = "nav-link" to = "/sign-in">Login</NavLink>
+                            <NavLink className = "nav-link" to = "/sign-in">Sign In</NavLink>
+                        </li>
+                    }
+                    {
+                        !authCtx.isLoggedIn && 
+                        <li className="nav-item">
+                            <NavLink className = "nav-link" to = "/sign-up">Sign Up</NavLink>
                         </li>
                     }
                     {

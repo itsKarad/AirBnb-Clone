@@ -3,10 +3,14 @@ const {check} = require("express-validator");
 const router = express.Router();
 const fileUpload = require("../middleware/file-upload");
 const {getPlaceById, getPlacesByUserId, createPlace, updatePlaceById, deletePlaceById} = require("../controllers/places");
+const {isLoggedIn} = require("../middleware/authorization");
+
 
 router.get("/place/:placeId", getPlaceById);
 
 router.get("/places/user/:userId", getPlacesByUserId);
+
+router.use(isLoggedIn);
 
 router.post("/places", fileUpload.single("image"),  [
     check("title").not().isEmpty(), 

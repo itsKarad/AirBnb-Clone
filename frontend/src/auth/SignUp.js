@@ -73,12 +73,12 @@ const SignUp = (props) => {
             formData.append("name", formIsValidState.inputs.name.value);
             formData.append("image", formIsValidState.inputs.photo.value);
             console.log(formData);
-            await sendRequest({
+            const data = await sendRequest({
                 url: "http://localhost:5000/api/users/signup",
                 method: "POST",
                 body: formData,
             });
-            authCtx.login();
+            authCtx.login(data.userId, data.token);
         } 
         catch(err){
             console.log(err);
@@ -132,7 +132,7 @@ const SignUp = (props) => {
                     {isLoading && <LoadingSpinner asOverlay = "true"></LoadingSpinner>}
                     <p>{error}</p>
                 </form>    
-                <div className = "auth-form-footer">
+                <div className = "auth-form-footer mb-3">
                     <p>Already have an account?</p>
                     <Link class = "btn btn-outline-primary" to = "/sign-in">Switch to Sign-in</Link>
                 </div>

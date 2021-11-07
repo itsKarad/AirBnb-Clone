@@ -1,4 +1,4 @@
-import React, {useState, useCallback} from 'react';
+import React, {useState, useCallback, useEffect} from 'react';
 import {BrowserRouter as Router, Route, Redirect, Switch} from 'react-router-dom' 
 import NewPlace from './places/pages/NewPlace';
 import Users from './users/pages/Users';
@@ -9,20 +9,13 @@ import UpdatePlace from './places/pages/UpdatePlace';
 import AuthContext from './shared/context/auth-context';
 import SignIn from './auth/SignIn';
 import SignUp from './auth/SignUp';
-function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [userId, setUserId] = useState(null);
+import { useAuth } from './hooks/use-auth';
 
-  const login = useCallback(() => {
-    setIsLoggedIn(true);
-    setUserId("617eae949c5318bd0fa3a70b");
-  }, []);
-  const logout = useCallback(() => {
-    setIsLoggedIn(false);
-    setUserId(null);
-  }, []);
+function App() {
+  const {token, login, logout, userId} = useAuth();
+
   let routes;
-  if(isLoggedIn){
+  if(!!token){
     routes = (
       <React.Fragment>
         <Route path = "/" exact>
@@ -66,7 +59,7 @@ function App() {
     );
   }
   return (
-    <AuthContext.Provider value = {{isLoggedIn: isLoggedIn, userId: userId, login: login, logout: logout}}>
+    <AuthContext.Provider value = {{isLoggedIn: !!token,token: token, userId: userId, login: login, logout: logout}}>
       <div className = "app-container">
         <Router>
           <Navbar />

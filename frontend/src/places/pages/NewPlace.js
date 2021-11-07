@@ -1,7 +1,8 @@
-import React, {useCallback, useReducer} from 'react';
+import React, {useCallback, useReducer, useContext} from 'react';
 import { useHistory } from 'react-router';
 import useHttp from '../../hooks/use-http';
 import ErrorModal from '../../shared/components/ErrorModal';
+import AuthContext from '../../shared/context/auth-context';
 import ImageUpload from '../../UI/ImageUpload';
 import Input from '../../UI/Input';
 import './NewPlace.css';
@@ -30,6 +31,7 @@ const formReducer = (state, action) => {
 };
 
 const NewPlace = (props) => {
+    const authCtx = useContext(AuthContext);
     const history = useHistory();
     const {isLoading, error, sendRequest, resetError} = useHttp();
     const [formIsValidState, dispatch] = useReducer(formReducer, {
@@ -63,6 +65,7 @@ const NewPlace = (props) => {
     }, []);
     const formSubmitHandler = async (event) => {
         event.preventDefault();
+        console.log(authCtx);
         //console.log(formIsValidState.inputs);
         try{
             const formData = new FormData();
@@ -70,11 +73,15 @@ const NewPlace = (props) => {
             formData.append("description", formIsValidState.inputs.description.value);
             formData.append("address", formIsValidState.inputs.address.value);
             formData.append("image", formIsValidState.inputs.photo.value);
+            formData.append("creator", authCtx.userId);
             console.log(formData);
             const data = await sendRequest({
                 url: "http://localhost:5000/api/places",
                 method: "POST",
                 body: formData,
+                headers: {
+                    Authorization: "Bearer " + authCtx.token
+                },
             });            
             console.log(data);
             history.push(`/`);

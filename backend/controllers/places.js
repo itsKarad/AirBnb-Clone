@@ -43,9 +43,8 @@ const createPlace = async(req, res, next) => {
         console.log(errors);
         return next(new HttpError("Invalid inputs passed, please check your data", 422));
     }
-
-    const {title, description, address} = req.body;
-    const creator = "617eae949c5318bd0fa3a70b";
+    console.log(req.body);
+    const {title, description, address, creator} = req.body;
     let coordinates;
     try{
         coordinates = await getCoordinates(address);
@@ -98,14 +97,22 @@ const updatePlaceById = async (req, res, next) => {
     console.log(req.body);
     let place;
     try{
-        place = await Place.findById(placeId);
+        place = await Place.findById(placeId).populate("creator");
     }   
     catch{
         return next(new HttpError("Something went wrong, could not update place", 404));
     }
+    console.log(place);
     if(!place){
-        next(new HttpError("Could not find place for the provided id", 404));
+        return next(new HttpError("Could not find place for the provided id", 404));
     }
+
+    if(place.creator.id !== req.userData.userId){
+        return next(
+            new HttpError("You are not the owner of this place!", 401)
+        );
+    }
+
     place.title = title;
     place.description = description;
     place.address = address;
@@ -127,8 +134,12 @@ const deletePlaceById = async (req, res, next) => {
         return next(new HttpError("Something went wrong, could not find that place", 404));
     } 
     const imagePath = place.image;
-
     console.log(place);
+    if(place.creator.id !== req.userData.userId){
+        return next(
+            new HttpError("You are not the owner of this place!", 401)
+        );
+    }
     let creator;
     try{
         creator = await User.findById(place.creator);
@@ -139,11 +150,14 @@ const deletePlaceById = async (req, res, next) => {
     console.log(creator);
     try{
         creator.places.pull(place);
+    } catch{
+        return next(new HttpError("Something went wrong, could not pull that place", 404));
+    }    
+    try{
         await creator.save();
     } catch{
         return next(new HttpError("Something went wrong, could not save the user relating to that place", 404));
     }    
-    
     try{
         await Place.findByIdAndDelete(placeId);
         

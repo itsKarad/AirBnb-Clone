@@ -9,3 +9,19 @@
     margin: 0 auto;
     width: 60%;
 }
+.btn-primary{
+    padding: 12px 24px !important;
+    background-color: white !important;
+    color: black !important;
+    border-radius: 7px !important;
+    transition: transform 250ms cubic-bezier(.2,.8,.4,1) !important;
+}
+.btn-primary:hover{
+    transform: scale(1.10);
+}
+
+.btn-primary:active {
+	transform: scale(0.9);
+}
+
+

@@ -1,5 +1,6 @@
-import React, {useCallback, useReducer, useEffect, useState} from 'react';
+import React, {useCallback, useReducer, useContext, useEffect, useState} from 'react';
 import { useParams, useHistory } from 'react-router';
+import AuthContext from '../../shared/context/auth-context';
 import Input from '../../UI/Input';
 import useHttp from '../../hooks/use-http';
 import './NewPlace.css';
@@ -28,6 +29,7 @@ const formReducer = (state, action) => {
 };
 
 const UpdatePlace = (props) => {  
+    const authCtx = useContext(AuthContext);
     const history = useHistory();
     const [place, setPlace] = useState(null);  
     const [formIsValidState, dispatch] = useReducer(formReducer, {
@@ -56,6 +58,7 @@ const UpdatePlace = (props) => {
         })
     }, []);
     const formSubmitHandler = async(event) => {
+        console.log(authCtx);
         event.preventDefault();
         console.log(formIsValidState.inputs);
         try{
@@ -63,13 +66,14 @@ const UpdatePlace = (props) => {
                 url: `http://localhost:5000/api/place/${placeId}`,
                 method: "PATCH",
                 headers:{
-                    "Content-Type": "application/json"
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + authCtx.token
                 },
-                body: {
+                body: JSON.stringify({
                     title: formIsValidState.inputs.title.value,
                     description: formIsValidState.inputs.description.value,
                     address:formIsValidState.inputs.address.value,
-                }
+                })
             });
             history.push(`/${place.creator}/places`);
             //console.log(response);

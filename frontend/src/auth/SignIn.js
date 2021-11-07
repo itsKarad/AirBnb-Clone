@@ -58,7 +58,7 @@ const SignIn = (props) => {
         event.preventDefault();
         console.log(formIsValidState.inputs.email.value, formIsValidState.inputs.password.value);
         try{
-            await sendRequest({
+            const data = await sendRequest({
                 url: "http://localhost:5000/api/users/login",
                 method: "POST",
                 headers:{
@@ -69,7 +69,8 @@ const SignIn = (props) => {
                     password:formIsValidState.inputs.password.value,
                 })
             });
-            authCtx.login();
+            authCtx.login(data.userId, data.token);
+
         } 
         catch(err){
             console.log(err);
@@ -108,7 +109,7 @@ const SignIn = (props) => {
 
                     <button onClick = {formSubmitHandler} disabled = {!formIsValidState.isValid} className = "btn btn-primary">Log In</button>
                 </form>  
-                <div className = "auth-form-footer">
+                <div className = "auth-form-footer mb-3">
                     <p>Don't have an account?</p>
                     <Link class = "btn btn-outline-primary" to = "/sign-up">Switch to Sign-up</Link>
                 </div>

@@ -30,7 +30,8 @@ const PlaceItem = (props) => {
                 url: `http://localhost:5000/api/place/${props.place.id}`,
                 method: "DELETE",
                 headers:{
-                    "Content-Type": "application/json"
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer "+ authCtx.token
                 },
             });
             console.log(response);
@@ -88,7 +89,7 @@ const PlaceItem = (props) => {
                                 <button onClick = {openMapHandler} className = "btn btn-primary">View on Google Maps</button>                     
                             </div> 
                             {
-                                authCtx.isLoggedIn && authCtx.userId === props.place.creator &&
+                                authCtx.isLoggedIn &&
                                 <div className = "place-action">
                                     <Link to = {`/place/${props.place.id}`} className="btn btn-warning">
                                         Edit
@@ -96,7 +97,7 @@ const PlaceItem = (props) => {
                                 </div>
                             }
                             {
-                                authCtx.isLoggedIn && authCtx.userId === props.place.creator &&
+                                authCtx.isLoggedIn &&
                                 <div className = "place-action">
                                     <button onClick = {openPromptHandler} className = "btn btn-danger">Delete</button>                     
                                 </div>
