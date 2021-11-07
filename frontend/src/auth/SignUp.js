@@ -6,6 +6,7 @@ import LoadingSpinner from '../shared/components/LoadingSpinner';
 import AuthContext from '../shared/context/auth-context';
 import ImageUpload from '../UI/ImageUpload';
 import Input from '../UI/Input';
+import { LoadingBlack } from '../UI/Loading';
 import './Auth.css';
 
 const formReducer = (state, action) => {
@@ -74,7 +75,7 @@ const SignUp = (props) => {
             formData.append("image", formIsValidState.inputs.photo.value);
             console.log(formData);
             const data = await sendRequest({
-                url: "http://localhost:5000/api/users/signup",
+                url: `${process.env.REACT_APP_BACKEND_URL}/api/users/signup`,
                 method: "POST",
                 body: formData,
             });
@@ -128,8 +129,11 @@ const SignUp = (props) => {
                         id = "photo"
                         onInput = {inputChangeHandler}
                     ></ImageUpload>
-                    <button onClick = {formSubmitHandler} disabled = {!formIsValidState.isValid} className = "btn btn-primary">Sign up!</button>
-                    {isLoading && <LoadingSpinner asOverlay = "true"></LoadingSpinner>}
+                    <button onClick = {formSubmitHandler} disabled = {!formIsValidState.isValid} className = "btn btn-primary">
+                        {!isLoading && "Sign Up!"}
+                        {isLoading && <LoadingBlack />}
+                    </button>
+                    {/* {isLoading && <LoadingSpinner asOverlay = "true"></LoadingSpinner>} */}
                     <p>{error}</p>
                 </form>    
                 <div className = "auth-form-footer mb-3">

@@ -4,7 +4,10 @@ const User = require("../models/user.js");
 const fileUpload = require("../middleware/file-upload");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const dotenv=require("dotenv");
 
+// Load config
+dotenv.config({ path: "./config.env" });
 
 
 const getAllUsers = async(req, res, next) => {
@@ -59,11 +62,12 @@ const createNewUser = async (req, res, next) => {
     }
     
     let token;
+    console.log(process.env.JWT_SECRET)
     try{
         token = jwt.sign({
             userId: newUser.id,
             email: newUser.email
-        }, "WowIsThisTheSecret?!", {expiresIn: "1h"});
+        }, process.env.JWT_SECRET, {expiresIn: "1h"});
     }
     catch{
         console.log(err);
@@ -78,6 +82,7 @@ const createNewUser = async (req, res, next) => {
 }
 
 const login = async (req, res, next) => {
+    console.log(process.env.JWT_SECRET);
     const errors = validationResult(req);
     if(!errors.isEmpty()){
         console.log(errors);
@@ -110,7 +115,7 @@ const login = async (req, res, next) => {
         token = jwt.sign({
             userId: existingUser.id,
             email: existingUser.email
-        }, "WowIsThisTheSecret?!", {expiresIn: "1h"});
+        }, process.env.JWT_SECRET, {expiresIn: "1h"});
     }
     catch{
         return next(new HttpError("Creating token failed, please try again later", 500));

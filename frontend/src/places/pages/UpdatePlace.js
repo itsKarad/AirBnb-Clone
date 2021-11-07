@@ -63,7 +63,7 @@ const UpdatePlace = (props) => {
         console.log(formIsValidState.inputs);
         try{
             await sendRequest({
-                url: `http://localhost:5000/api/place/${placeId}`,
+                url: `${process.env.REACT_APP_BACKEND_URL}/api/place/${placeId}`,
                 method: "PATCH",
                 headers:{
                     "Content-Type": "application/json",
@@ -90,7 +90,7 @@ const UpdatePlace = (props) => {
         const fetchPlace = async() => {
             try{
                 const response = await sendRequest({
-                    url: `http://localhost:5000/api/place/${placeId}`
+                    url: `${process.env.REACT_APP_BACKEND_URL}/api/place/${placeId}`
                 });
                 setPlace(response.place);
             } catch(err){

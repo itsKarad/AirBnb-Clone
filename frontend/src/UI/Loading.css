@@ -1,0 +1,31 @@
+
+@keyframes donut-spin {
+	0% {
+	  transform: rotate(0deg);
+	}
+	100% {
+	  transform: rotate(360deg);
+	}
+}
+
+.loading-button-black {
+	display: inline-block;
+	border: 4px solid rgba(238, 234, 234, 0.1);
+	border-left-color: black;
+	border-radius: 50%;
+	width: 30px;
+	height: 30px;
+    background-color: rgba(0,0,0,0);
+	animation: donut-spin 1.2s linear infinite;
+}
+
+.loading-button-white {
+	display: inline-block;
+	border: 4px solid rgba(238, 234, 234, 0.1);
+	border-left-color: rgb(255, 255, 255);
+	border-radius: 50%;
+	width: 30px;
+	height: 30px;
+    background-color: rgba(0,0,0,0);
+	animation: donut-spin 1.2s linear infinite;
+}

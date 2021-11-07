@@ -44,8 +44,9 @@ const createPlace = async(req, res, next) => {
         return next(new HttpError("Invalid inputs passed, please check your data", 422));
     }
     console.log(req.body);
-    const {title, description, address, creator} = req.body;
+    const {title, description, address} = req.body;
     let coordinates;
+    const creator = req.userData.userId;
     try{
         coordinates = await getCoordinates(address);
     }
@@ -60,9 +61,10 @@ const createPlace = async(req, res, next) => {
         image: req.file.path.replace("\\", "/"),
         creator,
     });
+    console.log(creator);
     let existingUser;
     try{
-        existingUser = await User.findById(creator);
+        existingUser = await User.findById(req.userData.userId);
     }
     catch{
         return next(new HttpError("Something went wrong, could not find user", 404));
@@ -76,8 +78,15 @@ const createPlace = async(req, res, next) => {
     catch (err){
         return next(new HttpError("Creating place failed, please try again", 500));
     }
+    console.log(newPlace);
+    console.log(existingUser);
     try{
-        existingUser.places.push(newPlace);        
+        existingUser.places.push(newPlace);      
+    } catch{
+        return next(new HttpError("Could not push place into users's place array", 404));
+    }
+    try{           
+        await existingUser.save();
         await existingUser.save();
     } catch{
         return next(new HttpError("Could not save user", 404));
@@ -183,4 +192,3 @@ module.exports = {
     updatePlaceById, 
     deletePlaceById 
 };
-

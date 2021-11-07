@@ -1,5 +1,9 @@
 const HttpError = require("../models/http-error");
 const jwt = require("jsonwebtoken");
+const dotenv=require("dotenv");
+
+// Load config
+dotenv.config({ path: "./config.env" });
 
 const isLoggedIn = (req, res, next) => {
     // Authorization: "BEARER _TOKEN_"
@@ -13,7 +17,7 @@ const isLoggedIn = (req, res, next) => {
         if(!token){
             throw new Error("Authorization failed!");   
         }
-        const decodedToken = jwt.verify(token, "WowIsThisTheSecret?!");
+        const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
         req.userData = {
             userId: decodedToken.userId,
         }

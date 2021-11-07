@@ -3,5 +3,12 @@
     letter-spacing: -0.12rem;
     font-size: 4rem;
     text-align: center;
-    margin: 5%;
+    margin: 2%;
+}
+.error-container{
+    margin: 0 auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
 }

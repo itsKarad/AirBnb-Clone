@@ -4,17 +4,18 @@ import useHttp from '../../hooks/use-http';
 import PlaceList from '../components/Placelist';
 import { useParams } from 'react-router';
 import './UserPlaces.css';
+import { LoadingWhite } from '../../UI/Loading';
 
 
 const UserPlaces = (props) => {
     const userId = useParams().userId;
     const [places, setPlaces] = useState(null);
-    const { isLoading, sendRequest } = useHttp();
+    const { isLoading, sendRequest, error } = useHttp();
     useEffect(() => {
         const fetchPlaces = async () => {
             try{
                 const data = await sendRequest({
-                    url: `http://localhost:5000/api/places/user/${userId}`
+                    url: `${process.env.REACT_APP_BACKEND_URL}/api/places/user/${userId}`
                 });
                 //console.log(data);
                 setPlaces(data.places);
@@ -33,12 +34,14 @@ const UserPlaces = (props) => {
             <div className = "places-header">
                 Your places
             </div>
-            {isLoading && <p>Loading...</p>}
-            {!isLoading && 
-                <Card>
+            <Card>
+                {isLoading && <div className = "error-container"><LoadingWhite></LoadingWhite></div>}
+                {!isLoading && 
                     <PlaceList places = {places} onDelete = {deletePlaceHandler}></PlaceList>
-                </Card>
-            }
+                }
+            </Card>
+            
+            
         </div>
         
         

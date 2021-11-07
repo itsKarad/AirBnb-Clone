@@ -2,8 +2,8 @@
 .place-item{
     border: 2px solid white;
     border-radius: 20px;
-    margin: 5%;
-    overflow: hidden;
+    margin: 2%;
+    overflow: hidden;    
 }
 
 .place-info{
@@ -17,12 +17,15 @@
 }   
 
 .place-image-container{
-    display: inline-block;
+    height: 100%;
     width: 100%;
-    height: 100%;   
     /* background: linear-gradient(to bottom, rgba(255, 255, 255, 0.25), rgba(0, 0, 0, 0.84)) !important; */
 }
-
+.place-image{
+    height: 40vh;
+    height: 100%;
+    width: 100%;
+}
 .place-title{
     font-size: 2.7rem;
     font-weight: 700;

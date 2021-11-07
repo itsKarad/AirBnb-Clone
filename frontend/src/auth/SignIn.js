@@ -6,6 +6,7 @@ import Input from '../UI/Input';
 import ErrorModal from '../shared/components/ErrorModal';
 import LoadingSpinner from '../shared/components/LoadingSpinner';
 import './Auth.css';
+import { LoadingBlack } from '../UI/Loading';
 
 const formReducer = (state, action) => {
     if(action.type === "INPUT_CHANGE"){
@@ -55,11 +56,12 @@ const SignIn = (props) => {
         })
     }, []);
     const formSubmitHandler = async(event) => {
+        
         event.preventDefault();
         console.log(formIsValidState.inputs.email.value, formIsValidState.inputs.password.value);
         try{
             const data = await sendRequest({
-                url: "http://localhost:5000/api/users/login",
+                url: `${process.env.REACT_APP_BACKEND_URL}/api/users/login`,
                 method: "POST",
                 headers:{
                     "Content-Type": "application/json"
@@ -107,7 +109,10 @@ const SignIn = (props) => {
                         onInput = {inputChangeHandler}
                     ></Input>
 
-                    <button onClick = {formSubmitHandler} disabled = {!formIsValidState.isValid} className = "btn btn-primary">Log In</button>
+                    <button onClick = {formSubmitHandler} disabled = {!formIsValidState.isValid} className = "btn btn-primary">
+                        {!isLoading && "Sign In"}
+                        {isLoading && <LoadingBlack />}
+                    </button>
                 </form>  
                 <div className = "auth-form-footer mb-3">
                     <p>Don't have an account?</p>
@@ -115,7 +120,7 @@ const SignIn = (props) => {
                 </div>
                 
                 {/* <button onClick = {switchModeHandler} className = "btn btn-outline-warning">Switch to {showLogin? "Sign-up" : "Sign In"}?</button> */}
-                {isLoading && <LoadingSpinner asOverlay = "true"></LoadingSpinner>}
+                {/* {isLoading && <LoadingSpinner asOverlay = "true"></LoadingSpinner>} */}
                 <p>{error}</p>
             </div>
         </div>

@@ -5,6 +5,7 @@ import ErrorModal from '../../shared/components/ErrorModal';
 import AuthContext from '../../shared/context/auth-context';
 import ImageUpload from '../../UI/ImageUpload';
 import Input from '../../UI/Input';
+import { LoadingBlack } from '../../UI/Loading';
 import './NewPlace.css';
 
 const formReducer = (state, action) => {
@@ -76,7 +77,7 @@ const NewPlace = (props) => {
             formData.append("creator", authCtx.userId);
             console.log(formData);
             const data = await sendRequest({
-                url: "http://localhost:5000/api/places",
+                url: `${process.env.REACT_APP_BACKEND_URL}/api/places`,
                 method: "POST",
                 body: formData,
                 headers: {
@@ -135,10 +136,13 @@ const NewPlace = (props) => {
                     <ImageUpload
                         id = "photo"
                         label = "Photo"
-                        onInput = {inputChangeHandler}
-                    
+                        onInput = {inputChangeHandler}                    
                     ></ImageUpload>
-                    <button disabled = {!formIsValidState.isValid} onClick = {formSubmitHandler} className = "btn btn-primary">Submit</button>
+                    
+                    <button disabled = {!formIsValidState.isValid} onClick = {formSubmitHandler} className = "btn btn-primary">
+                        {!isLoading && "Submit"}
+                        {isLoading && <LoadingBlack />}
+                    </button>
                 </form>
             </div>
             {isLoading && <p>Loading...</p>}
