@@ -16,42 +16,44 @@ const Navbar = (props) => {
                     <span className="navbar-toggler-icon"></span>
                 </button>
                 <div className="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-                    
-                </ul>
-                <ul className="navbar-nav mr-auto mb-2 mb-lg-0">
-                    <li className="nav-item">
-                        <NavLink className = "nav-link" to = "/users">All users</NavLink>
-                    </li>
-                    {
-                        authCtx.isLoggedIn &&
+                    <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                         <li className="nav-item">
-                            <NavLink className = "nav-link" to = {`/${authCtx.userId}/places`}>My Places</NavLink>
+                            <NavLink className = "nav-link" to = "/about" >About</NavLink>
                         </li>
-                    }
-                    <li className="nav-item">
-                        <NavLink className = "nav-link" to = "/places/new">Add a place</NavLink>
-                    </li>
-                    {
-                        !authCtx.isLoggedIn && 
+                    </ul>
+                    <ul className="navbar-nav mr-auto mb-2 mb-lg-0">
                         <li className="nav-item">
-                            <NavLink className = "nav-link" to = "/sign-in">Sign In</NavLink>
+                            <NavLink className = "nav-link" to = "/users">All users</NavLink>
                         </li>
-                    }
-                    {
-                        !authCtx.isLoggedIn && 
+                        {
+                            authCtx.isLoggedIn &&
+                            <li className="nav-item">
+                                <NavLink className = "nav-link" to = {`/${authCtx.userId}/places`} >My Places</NavLink>
+                            </li>
+                        }
                         <li className="nav-item">
-                            <NavLink className = "nav-link" to = "/sign-up">Sign Up</NavLink>
+                            <NavLink className = "nav-link" to = "/places/new">Add a place</NavLink>
                         </li>
-                    }
-                    {
-                        authCtx.isLoggedIn && 
-                        <li className="nav-item">
-                            <NavLink className = "nav-link" to = "/logout" onClick = {authCtx.logout}>Log out</NavLink>
-                        </li>
-                    }
-                    
-                </ul>
+                        {
+                            !authCtx.isLoggedIn && 
+                            <li className="nav-item">
+                                <NavLink className = "nav-link" to = "/sign-in">Sign In</NavLink>
+                            </li>
+                        }
+                        {
+                            !authCtx.isLoggedIn && 
+                            <li className="nav-item">
+                                <NavLink className = "nav-link" to = "/sign-up">Sign Up</NavLink>
+                            </li>
+                        }
+                        {
+                            authCtx.isLoggedIn && 
+                            <li className="nav-item">
+                                <NavLink className = "nav-link" to = "/logout" onClick = {authCtx.logout}>Log out</NavLink>
+                            </li>
+                        }
+                        
+                    </ul>
                 </div>
             </div>
         </nav>

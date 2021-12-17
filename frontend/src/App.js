@@ -1,15 +1,18 @@
 import React, {useState, useCallback, useEffect} from 'react';
 import {BrowserRouter as Router, Route, Redirect, Switch} from 'react-router-dom' 
+import { useAuth } from './hooks/use-auth';
+import './App.css';
+
 import NewPlace from './places/pages/NewPlace';
 import Users from './users/pages/Users';
-import './App.css';
 import Navbar from './shared/components/Navbar';
 import UserPlaces from './places/pages/UserPlaces';
 import UpdatePlace from './places/pages/UpdatePlace';
 import AuthContext from './shared/context/auth-context';
 import SignIn from './auth/SignIn';
 import SignUp from './auth/SignUp';
-import { useAuth } from './hooks/use-auth';
+import About from './about/About';
+
 
 function App() {
   const {token, login, logout, userId} = useAuth();
@@ -20,6 +23,9 @@ function App() {
       <React.Fragment>
         <Route path = "/" exact>
           <Users></Users>
+        </Route>
+        <Route path = "/about" exact>
+          <About></About>
         </Route>
         <Route path = "/users" exact>
           <Users></Users>
@@ -41,6 +47,9 @@ function App() {
       <Switch>
         <Route path = "/" exact>
           <Users></Users>
+        </Route>
+        <Route path = "/about" exact>
+          <About></About>
         </Route>
         <Route path = "/users" exact>
           <Users></Users>
