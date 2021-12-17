@@ -6,6 +6,7 @@
     font-weight: 400;
     font-size: 1.2rem;
     margin-bottom: 4rem;
+    letter-spacing: 0.05rem;
 }
 .markdown-container img{
     width: 70%;
@@ -33,7 +34,7 @@
     margin-top: 5%;
     margin-bottom: 5%;
     font-size: 1.7rem;
-    font-weight: 500;
+    font-weight: 600;
 }
 
 @media screen and (max-width: 768px) {

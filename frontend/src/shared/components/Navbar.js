@@ -25,6 +25,12 @@ const Navbar = (props) => {
                         <li className="nav-item">
                             <NavLink className = "nav-link" to = "/users">All users</NavLink>
                         </li>
+                        <li className="nav-item">
+                            <NavLink className = "nav-link" to = "/places">All places</NavLink>
+                        </li>
+                        <li className="nav-item">
+                            <NavLink className = "nav-link" to = "/explore">Explore!</NavLink>
+                        </li>
                         {
                             authCtx.isLoggedIn &&
                             <li className="nav-item">

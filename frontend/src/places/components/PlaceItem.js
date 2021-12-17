@@ -43,7 +43,6 @@ const PlaceItem = (props) => {
     }
     console.log(props.place);
     const imageLink = `${process.env.REACT_APP_BACKEND_URL}/`+props.place.image;
-    console.log(imageLink);
     return (        
         <React.Fragment>
             <Modal 
@@ -77,12 +76,19 @@ const PlaceItem = (props) => {
                     </div>                    
                     <div className = "place-info">
                         <div className = "place-address">
-                            Location: {props.place.address}
+                            <span class = "category-label">Location: </span> {props.place.address}
                         </div>
                         
                         <div className = "place-description">
-                            {props.place.description}
+                        <span class = "category-label">Description: </span>{props.place.description}
                         </div>
+                        {props.showCreator? 
+                            <div class = "place-creator"> 
+                            <Link to={`/${props.place.creator.id}/places`}>
+                                <span class = "category-label">Owner: </span> {props.place.creator.name} 
+                            </Link>
+                                
+                            </div> : <div />}
 
                         <div className = "place-actions">
                             <div className = "place-action">

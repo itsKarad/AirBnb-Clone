@@ -3,9 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@chakra-ui/react": "^1.7.3",
     "@craco/craco": "^6.4.0",
+    "@emotion/react": "^11.7.1",
+    "@emotion/styled": "^11.6.0",
     "@headlessui/react": "^1.4.1",
     "@heroicons/react": "^1.0.5",
+    "framer-motion": "^4.1.17",
     "marked": "^4.0.1",
     "react": "^16.11.0",
     "react-dom": "^16.11.0",

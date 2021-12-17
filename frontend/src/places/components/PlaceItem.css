@@ -10,6 +10,13 @@
     padding: 5%;
     font-size: 1.2rem;
 }
+
+.place-creator{
+    margin-top: 5%;
+    font-weight: 700;
+    margin-bottom: 5%;
+}
+
 .place-address{
     margin-top: 5%;
     font-weight: 700;
@@ -69,4 +76,8 @@
     text-align: center;
     font-weight: 500;
     color: whitesmoke;
+}
+.category-label{
+    font-weight: 800;
+    color: rgb(211, 138, 55);
 }

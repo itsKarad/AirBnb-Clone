@@ -2,6 +2,7 @@ import React, {useState, useCallback, useEffect} from 'react';
 import {BrowserRouter as Router, Route, Redirect, Switch} from 'react-router-dom' 
 import { useAuth } from './hooks/use-auth';
 import './App.css';
+import { ChakraProvider } from '@chakra-ui/react'
 
 import NewPlace from './places/pages/NewPlace';
 import Users from './users/pages/Users';
@@ -12,6 +13,8 @@ import AuthContext from './shared/context/auth-context';
 import SignIn from './auth/SignIn';
 import SignUp from './auth/SignUp';
 import About from './about/About';
+import Places from './places/pages/Places';
+import Explorer from './explorer/pages/Explorer';
 
 
 function App() {
@@ -26,6 +29,12 @@ function App() {
         </Route>
         <Route path = "/about" exact>
           <About></About>
+        </Route>
+        <Route path = "/places" exact>
+          <Places></Places>
+        </Route>
+        <Route path = "/explore" exact>
+          <Explorer></Explorer>
         </Route>
         <Route path = "/users" exact>
           <Users></Users>
@@ -53,6 +62,12 @@ function App() {
         </Route>
         <Route path = "/users" exact>
           <Users></Users>
+        </Route>
+        <Route path = "/explore" exact>
+          <Explorer></Explorer>
+        </Route>
+        <Route path = "/places" exact>
+          <Places></Places>
         </Route>
         <Route path = "/sign-in">
           <SignIn></SignIn>

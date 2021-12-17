@@ -30,11 +30,18 @@ const getPlacesByUserId = async(req, res, next) =>{
     catch{
         return next(new HttpError("Fetching places from userID failed", 404));
     }
-    console.log(places);
-    if(!places || places.length === 0){
-        return next(new HttpError("Could not find any places for the provided user id", 404));
+    let user;
+    try{
+        user = await User.findById(userId);
     }
-    res.json({places: places.map(place => place.toObject({getters: true}))});
+    catch{
+        return next(new HttpError("Fetching user from userID failed", 404));
+    }
+    
+    if(!user || !places){
+        return next(new HttpError("Could not find any places or users for the provided user id", 404));
+    }
+    res.json({user: user.toObject({getters: true}), places: places.map(place => place.toObject({getters: true}))});
 }
 
 const createPlace = async(req, res, next) => {
@@ -185,10 +192,28 @@ const deletePlaceById = async (req, res, next) => {
     res.status(201).json({message: "Place was successfully deleted!"});
 }
 
+const getAllPlaces = async(req, res, next) => {
+    console.log("Route connected to correct controller!");
+    let allPlaces = [];
+    try{
+        allPlaces = await Place.find({}).populate("creator");
+    }
+    catch{
+        return next(new HttpError("Cannot find all places!", 404));
+    }
+
+    console.log(allPlaces);
+    if(!allPlaces || allPlaces.length === 0){
+        return next(new HttpError("Could not find any places for any users", 404));
+    }
+    res.json({places: allPlaces.map(place => place.toObject({getters: true}))});
+}
+
 module.exports = { 
     getPlaceById, 
     getPlacesByUserId, 
     createPlace, 
     updatePlaceById, 
-    deletePlaceById 
+    deletePlaceById,
+    getAllPlaces
 };

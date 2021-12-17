@@ -12,6 +12,7 @@ const UserPlaces = (props) => {
     const authCtx = useContext(AuthContext);
     const userId = useParams().userId;
     const [places, setPlaces] = useState(null);
+    const [user, setUser] = useState(null);
     const { isLoading, sendRequest, error } = useHttp();
     useEffect(() => {
         const fetchPlaces = async () => {
@@ -19,8 +20,10 @@ const UserPlaces = (props) => {
                 const data = await sendRequest({
                     url: `${process.env.REACT_APP_BACKEND_URL}/api/places/user/${userId}`
                 });
-                //console.log(data);
+                console.log(data.user);
+
                 setPlaces(data.places);
+                setUser(data.user);
             }
             catch(err){
                 console.log(err);
@@ -34,9 +37,17 @@ const UserPlaces = (props) => {
     return (
         <div className = "user-places-container">
             <div className = "places-header">
-                {authCtx.isLoggedIn && authCtx.userId !== userId && "Places"}
-                {!authCtx.isLoggedIn && "Places"}
-                {authCtx.isLoggedIn && authCtx.userId === userId && "Your places"}
+                {!isLoading && 
+                    <div>
+                        {authCtx.isLoggedIn && authCtx.userId === userId && "Your places"}
+                        {authCtx.isLoggedIn && authCtx.userId !== userId && user && `${user.name}'s Places`}
+                        {!authCtx.isLoggedIn && user && `${user.name}'s Places`}
+                        {!user && "Places"}
+                    </div>
+                }
+                {
+                    isLoading && "Places"
+                }
             </div>
             <Card>
                 {isLoading && <div className = "error-container"><LoadingWhite></LoadingWhite></div>}
