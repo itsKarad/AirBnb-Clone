@@ -54,7 +54,7 @@ const PlaceItem = (props) => {
                         </div>
                     </div>
                     <div className='place-actions'>
-                        <button onClick={openMapHandler} className='btn btn-primary'>
+                        <button onClick={openMapHandler} className='btn btn-primary map-button'>
                             <FiMap></FiMap>
                         </button>
                         <Link to = {`/place/${props.place.id}`} className='btn btn-primary'>

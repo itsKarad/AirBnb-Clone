@@ -127,18 +127,21 @@ const MapExplorer = (props) => {
               infoWindow.close();
               infoWindow.setContent(`
               <div class = "map-label-container">
+              <a href = "/place/${place.id}" target="_blank">
                 <div class = "map-label-image-container">
-                  <img class = "map-label-image" src = ${`${process.env.REACT_APP_BACKEND_URL}/`+place.image} />
-                  </div>
+                <img class = "map-label-image" src = ${`${process.env.REACT_APP_BACKEND_URL}/`+place.image} />
+                </div>
                 <div class = "map-label-info-container">
                   <h3> 
-                    <a href = "/place/${place.id}">
+                    
                       <strong>${marker.getTitle()} </strong>  
-                    </a>
+                    
                     by 
-                    <strong> <a href = "/user/${place.creator.id}/places"> ${place.creator.name} </a></strong> 
+                    <strong> ${place.creator.name}</strong> 
                   </h3>
                 </div>
+              </a>
+                
               </div>
               `);
               infoWindow.open(marker.getMap(), marker);
