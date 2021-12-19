@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {CSSTransition} from 'react-transition-group';
 import Backdrop from './Backdrop';
-
+import {IoClose} from 'react-icons/io5';
 import './Modal.css';
 
 const ModalOverlay = (props) => {
@@ -16,7 +16,7 @@ const ModalOverlay = (props) => {
             </div>                
             <div className = "modal-footer">
                 {props.footer}
-                <button className = "map-close-button btn btn-danger" onClick = {props.onCancel}>x</button>
+                <button className = "map-close-button btn btn-danger" onClick = {props.onCancel}><IoClose></IoClose></button>
             </div>
         </div>
     );

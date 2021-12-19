@@ -26,7 +26,7 @@ function App() {
     routes = (
       <React.Fragment>
         <Route path = "/" exact>
-          <Users></Users>
+          <Places></Places>
         </Route>
         <Route path = "/about" exact>
           <About></About>
@@ -59,7 +59,7 @@ function App() {
     routes = (
       <Switch>
         <Route path = "/" exact>
-          <Users></Users>
+          <Places></Places>
         </Route>
         <Route path = "/about" exact>
           <About></About>

@@ -2,59 +2,41 @@
 .place-item{
     border: 2px solid white;
     border-radius: 20px;
-    margin: 2%;
     overflow: hidden;    
 }
 
 .place-info{
-    padding: 5%;
+    padding-left: 5%;
     font-size: 1.2rem;
+    margin-bottom: 1rem;
 }
 
-.place-creator{
-    margin-top: 5%;
-    font-weight: 700;
-    margin-bottom: 5%;
+.place-container{
+    padding: 5rem;
 }
-
-.place-address{
-    margin-top: 5%;
-    font-weight: 700;
-    margin-bottom: 5%;
-}   
-
 .place-image-container{
     height: 100%;
     width: 100%;
     /* background: linear-gradient(to bottom, rgba(255, 255, 255, 0.25), rgba(0, 0, 0, 0.84)) !important; */
 }
 .place-image{
-    height: 40vh;
+    height: 20vh;
     height: 100%;
     width: 100%;
 }
 .place-title{
-    font-size: 2.7rem;
-    font-weight: 700;
+    font-size: 2rem;
+    font-weight: 600;
     letter-spacing: -0.05rem;
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: -12%;
+    padding: 5%;
     text-shadow: 0px 4px 3px rgba(0, 0, 0, 0.4), 0px 8px 13px rgba(0, 0, 0, 0.1), 0px 18px 23px rgba(0, 0, 0, 0.1);
 
 }
-.place-actions{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
-    margin-top: 5%;
-    margin-bottom: 4rem;
-    margin-left: 2%;
-    margin-right: 2%;
-}
 .map-container{
-    height: 30rem !important;
+    height: 25rem !important;
     width: 100%;
     margin: 0 auto;
     display: flex;
@@ -67,6 +49,7 @@
     text-align: center;
     display: flex;
     justify-content: center;
+    align-items: center;
     font-size: 1.4rem;
     height: 50px;
     width: 50px;
@@ -74,10 +57,22 @@
 .map-place-address{
     font-size: 1.2rem;
     text-align: center;
-    font-weight: 500;
-    color: whitesmoke;
+    color: rgb(218, 216, 216);
 }
 .category-label{
     font-weight: 800;
     color: rgb(211, 138, 55);
+}
+
+.place-card:hover{
+    color: white;
+}
+.place-actions{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    padding-bottom: 2rem;
+}
+.place-price{
+    font-size: 1.5rem;
 }
