@@ -5,6 +5,7 @@ const fileUpload = require("../middleware/file-upload");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const dotenv=require("dotenv");
+const sendWelcomeEmail = require("../util/email");
 
 // Load config
 dotenv.config({ path: "./config.env" });
@@ -60,7 +61,7 @@ const createNewUser = async (req, res, next) => {
         console.log(err);
         return next(new HttpError("Creating user failed, please try again later", 500));
     }
-    
+    sendWelcomeEmail(email);
     let token;
     console.log(process.env.JWT_SECRET)
     try{
