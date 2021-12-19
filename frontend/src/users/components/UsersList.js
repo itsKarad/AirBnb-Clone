@@ -8,7 +8,7 @@ const UsersList = (props) => {
     if(!props || !props.users || props.users.length === 0){
         usersListContent = <div className = "no-users-container">
             <h2 className = "mb-5">No users found! Want be one?</h2>
-            <Link to = "/">
+            <Link to = "/sign-up">
                 <button className = "btn btn-primary">Sign up</button>
             </Link>                
         </div>

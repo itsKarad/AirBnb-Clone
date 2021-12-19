@@ -84,7 +84,7 @@ const PlaceItem = (props) => {
                         </div>
                         {props.showCreator? 
                             <div class = "place-creator"> 
-                            <Link to={`/${props.place.creator.id}/places`}>
+                            <Link to={`/user/${props.place.creator.id}/places`}>
                                 <span class = "category-label">Owner: </span> {props.place.creator.name} 
                             </Link>
                                 
@@ -94,7 +94,10 @@ const PlaceItem = (props) => {
                             <div className = "place-action">
                                 <button onClick = {openMapHandler} className = "btn btn-primary">
                                     View on Google Maps 
-                                </button>                     
+                                </button>  
+                                <Link className='btn btn-primary' to = {`/place/${props.place.id}`}> 
+                                    View more!
+                                </Link>                   
                             </div> 
                             {
                                 authCtx.isLoggedIn && authCtx.userId === props.place.creator &&

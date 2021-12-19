@@ -10,12 +10,19 @@ const CHECK_EMAIL = (val) => {
 const CHECK_PASSWORD = (val) => {
     return !(!val || val === "" || val.length <= 6 );
 }
+const CHECK_NUMBER = (val) => {
+    //console.log(!(val || val === "" || Number(val) < 0));
+    return !(!val || val === "" || Number(val) < 0);
+}
 const validate = (val, type) => {
     if(type === "email"){
         return CHECK_EMAIL(val);
     }
     else if(type === "password"){
         return CHECK_PASSWORD(val);
+    }
+    else if(type === "number"){
+        return CHECK_NUMBER(val);
     }
     return CHECK_NOT_EMPTY(val);
 }
@@ -32,7 +39,6 @@ const inputReducer = (state, action) => {
 };
 
 const Input = (props) => {
-    
     const [inputState, dispatch] = useReducer(inputReducer, { inputType: props.type, value: props.value ? props.value : "", isValid: props.value? validate(props.value, props.type) : false});
     const [isTouched, setIsTouched] = useState(false);
     const onChangeHandler = (event) => {
@@ -47,6 +53,7 @@ const Input = (props) => {
     const {value, isValid} = inputState;
 
     useEffect(() => {
+        //console.log(props.id, inputState.value, inputState.isValid);
         props.onInput(props.id, inputState.value, inputState.isValid)
     }, [id, onInput, value, isValid]);
     
@@ -59,7 +66,6 @@ const Input = (props) => {
                     placeholder = {props.placeholder} 
                     type = {props.type}
                     onChange = {onChangeHandler} 
-                    className = "form-control"
                     value = {inputState.value}
                     onBlur = {onBlurHandler}
                 ></input>
@@ -69,7 +75,6 @@ const Input = (props) => {
         );
     }
     else{
-        
         return (
             <div className = {`form form-group ${!inputState.isValid && isTouched? "form--invalid" : ""}`}>
                 <label for = {props.id}>{props.label}</label>

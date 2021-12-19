@@ -15,6 +15,7 @@ import SignUp from './auth/SignUp';
 import About from './about/About';
 import Places from './places/pages/Places';
 import Explorer from './explorer/pages/Explorer';
+import Place from './places/pages/Place';
 
 
 function App() {
@@ -39,13 +40,16 @@ function App() {
         <Route path = "/users" exact>
           <Users></Users>
         </Route>
-        <Route path = "/:userId/places" exact>
+        <Route path = "/user/:userId/places" exact>
           <UserPlaces></UserPlaces>
         </Route>
         <Route path = "/places/new" exact>
           <NewPlace></NewPlace>
         </Route>
         <Route path = "/place/:placeId">
+          <Place></Place>
+        </Route>
+        <Route path = "/edit-place/:placeId">
           <UpdatePlace></UpdatePlace>
         </Route>
         <Redirect to = "/"></Redirect>
@@ -66,6 +70,9 @@ function App() {
         <Route path = "/explore" exact>
           <Explorer></Explorer>
         </Route>
+        <Route path = "/place/:placeId">
+          <Place></Place>
+        </Route>
         <Route path = "/places" exact>
           <Places></Places>
         </Route>
@@ -75,7 +82,7 @@ function App() {
         <Route path = "/sign-up">
           <SignUp></SignUp>
         </Route>
-        <Route path = "/:userId/places" exact>
+        <Route path = "/user/:userId/places" exact>
           <UserPlaces></UserPlaces>
         </Route>
         <Redirect to = "/sign-in"></Redirect>

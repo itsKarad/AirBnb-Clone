@@ -10,7 +10,7 @@ const UserItem = (props) => {
                 <div className = "user-photo">
                     <img src = {`${process.env.REACT_APP_BACKEND_URL}/${props.user.image}`} alt = "Profile pic"></img>
                 </div>
-                <Link to = {`/${props.user.id}/places`}>
+                <Link to = {`/user/${props.user.id}/places`}>
                     <div className = "user-info">
                         <div className = "user-name">
                             {props.user.name}

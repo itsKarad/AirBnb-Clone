@@ -106,7 +106,7 @@ const MapExplorer = (props) => {
       if(!isLoading){
         const map = new window.google.maps.Map(mapRef.current, {
             center: { lat: 32.2431872, lng: 77.1891761 },
-            zoom: 16,
+            zoom: 4,
             styles: MAP_STYLES,
         });
 
@@ -132,9 +132,11 @@ const MapExplorer = (props) => {
                   </div>
                 <div class = "map-label-info-container">
                   <h3> 
-                    <strong>${marker.getTitle()} </strong>  
+                    <a href = "/place/${place.id}">
+                      <strong>${marker.getTitle()} </strong>  
+                    </a>
                     by 
-                    <strong> <a href = "/${place.creator.id}/places"> ${place.creator.name} </a></strong> 
+                    <strong> <a href = "/user/${place.creator.id}/places"> ${place.creator.name} </a></strong> 
                   </h3>
                 </div>
               </div>

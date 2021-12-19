@@ -2,6 +2,10 @@ const mongoose = require('mongoose');
 const uniqueValidator = require('mongoose-unique-validator');
 
 const userSchema = new mongoose.Schema({
+    createdAt: {
+        type: Date,
+        default: Date.now(),
+    },
     image: {
         type: String,
         required: true,

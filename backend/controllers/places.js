@@ -10,7 +10,7 @@ const getPlaceById = async (req, res, next) => {
     const placeId = req.params.placeId;
     let place;
     try{
-        place = await Place.findById(placeId);
+        place = await Place.findById(placeId).populate("creator");
     } catch{
         return next(new HttpError("Something went wrong, could not find place", 404));
     }    
@@ -51,7 +51,23 @@ const createPlace = async(req, res, next) => {
         return next(new HttpError("Invalid inputs passed, please check your data", 422));
     }
     console.log(req.body);
-    const {title, description, address} = req.body;
+    const {
+        title, 
+        description, 
+        address, 
+        hasWifi,
+        price,
+        numberOfBedrooms,
+        numberOfBeds,
+        hasParking,
+        hasPool,
+        hasDining,
+        hasPetsAllowed,
+        hasEssentials,
+        hasKitchen,
+        hasAirConditioning,
+        hasTV,
+    } = req.body;
     let coordinates;
     const creator = req.userData.userId;
     try{
@@ -67,6 +83,20 @@ const createPlace = async(req, res, next) => {
         location: coordinates,
         image: req.file.path.replace("\\", "/"),
         creator,
+        price,
+        numberOfBedrooms,
+        numberOfBeds,
+        amenities: {
+            hasWifi,
+            hasParking,
+            hasPool,
+            hasDining,
+            hasPetsAllowed,
+            hasEssentials,
+            hasKitchen,
+            hasAirConditioning,
+            hasTV,
+        },
     });
     console.log(creator);
     let existingUser;
@@ -109,7 +139,23 @@ const updatePlaceById = async (req, res, next) => {
     }
 
     const placeId = req.params.placeId;
-    const {title, description, address} = req.body;
+    const {
+        title, 
+        description, 
+        address, 
+        hasWifi,
+        price,
+        numberOfBedrooms,
+        numberOfBeds,
+        hasParking,
+        hasPool,
+        hasDining,
+        hasPetsAllowed,
+        hasEssentials,
+        hasKitchen,
+        hasAirConditioning,
+        hasTV,
+    } = req.body;
     console.log(req.body);
     let place;
     try{
@@ -132,6 +178,18 @@ const updatePlaceById = async (req, res, next) => {
     place.title = title;
     place.description = description;
     place.address = address;
+    place.price = price;
+    place.numberOfBedrooms = numberOfBedrooms;
+    place.amenities.numberOfBeds = numberOfBeds;
+    place.amenities.hasWifi = hasWifi;
+    place.amenities.hasParking = hasParking
+    place.amenities.hasPool = hasPool
+    place.amenities.hasDining = hasDining;
+    place.amenities.hasPetsAllowed = hasPetsAllowed;
+    place.amenities.hasEssentials = hasEssentials;
+    place.amenities.hasKitchen = hasKitchen;
+    place.amenities.hasAirConditioning = hasAirConditioning;
+    place.amenities.hasTV = hasTV;
     try{
         await place.save();
     }

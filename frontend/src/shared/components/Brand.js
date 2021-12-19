@@ -6,7 +6,7 @@ import './Brand.css';
 const Brand = (props) => {
     return (
         <div className="navbar-brand">
-            Places
+            AirBnB Clone
         </div>
     );
 };

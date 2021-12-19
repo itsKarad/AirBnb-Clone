@@ -1,0 +1,17 @@
+.amenity{
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    margin: 2rem;
+}
+.icon{
+    margin-right: 1rem;
+    font-size: 2rem;
+}
+.text{
+    font-size: 1.5rem;
+}
+.crossed-out{
+    text-decoration: line-through;
+    color: rgb(221, 77, 106);
+}

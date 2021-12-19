@@ -34,7 +34,7 @@ const Navbar = (props) => {
                         {
                             authCtx.isLoggedIn &&
                             <li className="nav-item">
-                                <NavLink className = "nav-link" to = {`/${authCtx.userId}/places`} >My Places</NavLink>
+                                <NavLink className = "nav-link" to = {`/user/${authCtx.userId}/places`} >My Places</NavLink>
                             </li>
                         }
                         <li className="nav-item">

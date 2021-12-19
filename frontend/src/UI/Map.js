@@ -1,5 +1,5 @@
 import React, {useRef, useEffect} from 'react';
-import './Map.css';
+import styles from './Map.module.css';
 
 const MAP_STYLES = [
     { elementType: "geometry", stylers: [{ color: "#242f3e" }] },
@@ -101,7 +101,7 @@ const Map = (props) => {
     
     
     return (
-        <div ref = {mapRef} className = "map">
+        <div ref = {mapRef} className = {styles["map"]}>
 
         </div>
     );

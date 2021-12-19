@@ -1,0 +1,65 @@
+.place-container{
+    margin: 0 auto;
+}
+.place{
+    font-size: 1.4rem;
+}
+
+.place-title{
+    font-weight: 800;
+    letter-spacing: -0.10rem;
+    font-size: 2.5rem;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+
+
+.place-image-container{
+    margin: 0 auto;
+
+}
+.place-info{
+    display: flex;
+    flex-direction: column;
+
+}
+.place-image{
+    width: 70%;
+    border-radius: 20px;
+    margin: 0 auto;
+}
+.place-creator{
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    align-items: center;
+}
+.creator-image{
+    margin-right: 1rem;
+}
+
+.place-address{
+    margin-bottom: 3rem;
+}
+.section-header{
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    margin-top: 2rem;
+}
+.map-container{
+    height: 40rem;
+    width: 99%;
+    margin: 0 auto;
+    margin-bottom: 5rem;
+}
+
+.place-actions{
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+
+}
+.place-action{
+    margin-left: 2rem;
+}

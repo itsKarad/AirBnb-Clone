@@ -1,0 +1,29 @@
+.block-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    background: #1C1E22;
+    padding: 2rem;
+    border-radius: 20px;
+    width: 15rem;
+}
+.outside-block-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0.5%;
+    border-radius: 20px;
+    margin: 2rem auto;
+    
+    border-radius: 20px;
+    background: linear-gradient(to right, red, purple);
+}
+.icon{
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+.data{
+    font-size: 1.5rem;
+}
