@@ -37,31 +37,31 @@ const UpdatePlace = (props) => {
         inputs:{
             title:{
                 value: "",
-                isValid: false,
+                isValid: true,
             },
             description:{
                 value: "",
-                isValid: false,
+                isValid: true,
             },
             address:{
                 value: "",
-                isValid: false,
+                isValid: true,
             },
             photo: {
                 value: null,
-                isValid: false,
+                isValid: true,
             },
             price: {
                 value: null,
-                isValid: false,
+                isValid: true,
             },
             numberOfBedrooms: {
                 value: null,
-                isValid: false,
+                isValid: true,
             },
             numberOfBeds: {
                 value: null,
-                isValid: false,
+                isValid: true,
             },
             hasWifi: {
                 value: false,
@@ -100,7 +100,7 @@ const UpdatePlace = (props) => {
                 isValid: true,
             },
         },
-        isValid:false,
+        isValid:true,
     });
     const inputChangeHandler = useCallback((id, value, isValid) => {
         dispatch({
@@ -142,7 +142,7 @@ const UpdatePlace = (props) => {
 
                 })
             });
-            history.push(`/${place.creator}/places`);
+            history.push(`/user/${place.creator.id}/places`);
             //console.log(response);
         } catch(err){
             console.log(err);
@@ -252,58 +252,59 @@ const UpdatePlace = (props) => {
                             errorText = "Number of beds cannot be negative or empty!"
                             onInput = {inputChangeHandler}
                             ></Input>
+                        <span className='form-subheading'>What amenities does your place have?</span>
                         <CheckBox 
                             id = "hasWifi"
                             value = {place.amenities.hasWifi}
-                            label = "Does your place have WiFi?"
+                            label = "WiFi"
                             onInput = {inputChangeHandler}
                         ></CheckBox>
                         <CheckBox 
                             id = "hasParking"
                             value = {place.amenities.hasParking}
-                            label = "Does your place have Parking space?"
+                            label = "Parking space"
                             onInput = {inputChangeHandler}
                         ></CheckBox>
                         <CheckBox 
                             id = "hasPool"
                             value = {place.amenities.hasPool}
-                            label = "Does your place have a swimming pool?"
+                            label = "Swimming pool"
                             onInput = {inputChangeHandler}
                         ></CheckBox>
                         <CheckBox 
                             id = "hasDining"
                             value = {place.amenities.hasDining}
-                            label = "Does your place have dining facilities?"
+                            label = "Dining facilities"
                             onInput = {inputChangeHandler}
                         ></CheckBox>
                         <CheckBox 
                             id = "hasPetsAllowed"
                             value = {place.amenities.hasPetsAllowed}
-                            label = "Do you allow pets?"
+                            label = "Pet-friendly"
                             onInput = {inputChangeHandler}
                         ></CheckBox>
                         <CheckBox 
                             id = "hasEssentials"
                             value = {place.amenities.hasEssentials}
-                            label = "Does your place have essential utilities?"
+                            label = "Essential utilities"
                             onInput = {inputChangeHandler}
                         ></CheckBox>
                         <CheckBox 
                             id = "hasAirConditioning"
                             value = {place.amenities.hasAirConditioning}
-                            label = "Does your place have air conditioning?"
+                            label = "Air conditioning"
                             onInput = {inputChangeHandler}
                         ></CheckBox>
                         <CheckBox 
                             id = "hasTV"
                             value = {place.amenities.hasTV}
-                            label = "Does your place have television?"
+                            label = "Television"
                             onInput = {inputChangeHandler}
                         ></CheckBox>
                         <CheckBox 
                             id = "hasKitchen"
                             value = {place.amenities.hasKitchen}
-                            label = "Does your place have a kitchen?"
+                            label = "Kitchen"
                             onInput = {inputChangeHandler}
                         ></CheckBox>
                         <button 

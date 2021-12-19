@@ -20,8 +20,16 @@ const CheckBox = (props) => {
     }, [isChecked]);
 
     return (
-        <div className='form form-group'>
-            <Checkbox onChange={onChangeHandler} checked={isChecked}>{props.label}</Checkbox>
+        <div className='checkbox-container'>
+            <input
+                className='checkbox-input'
+                type = "checkbox"
+                onChange={onChangeHandler}
+                id = {props.id}
+                checked = {isChecked}
+            >
+            </input>
+            <label className='checkbox-label' for = {props.id}>{props.label}</label>
         </div>
     )
 };

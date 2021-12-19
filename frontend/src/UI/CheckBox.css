@@ -1,0 +1,9 @@
+.checkbox-input{
+    margin: 1rem;
+    height: 20px;
+    width: 20px;
+}
+.checkbox-label{
+    font-weight: 400;
+    font-size: 1.5rem;
+}

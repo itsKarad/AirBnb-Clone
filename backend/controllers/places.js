@@ -180,7 +180,7 @@ const updatePlaceById = async (req, res, next) => {
     place.address = address;
     place.price = price;
     place.numberOfBedrooms = numberOfBedrooms;
-    place.amenities.numberOfBeds = numberOfBeds;
+    place.numberOfBeds = numberOfBeds;
     place.amenities.hasWifi = hasWifi;
     place.amenities.hasParking = hasParking
     place.amenities.hasPool = hasPool
