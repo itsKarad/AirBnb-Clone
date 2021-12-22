@@ -1,0 +1,25 @@
+.booking-form{
+    color: black;
+    margin-bottom: 3rem;
+}
+.booking-container{
+    display: flex;
+    flex-direction: column;
+}
+.booking-dates{
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 3rem;   
+}
+.start-date{
+    margin-right: 1rem;
+}
+.end-date{
+    margin-left: 1rem;
+}
+.booking-calculation{
+    margin-bottom: 3rem;
+}
+.error{
+    color: red;
+}

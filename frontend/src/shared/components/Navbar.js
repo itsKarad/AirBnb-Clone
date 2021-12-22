@@ -26,9 +26,6 @@ const Navbar = (props) => {
                             <NavLink className = "nav-link" to = "/users">All users</NavLink>
                         </li>
                         <li className="nav-item">
-                            <NavLink className = "nav-link" to = "/">All places</NavLink>
-                        </li>
-                        <li className="nav-item">
                             <NavLink className = "nav-link" to = "/explore">Explore!</NavLink>
                         </li>
                         {
@@ -37,6 +34,9 @@ const Navbar = (props) => {
                                 <NavLink className = "nav-link" to = {`/user/${authCtx.userId}/places`} >My Places</NavLink>
                             </li>
                         }
+                        <li className="nav-item">
+                            <NavLink className = "nav-link" to = "/my-bookings">Bookings</NavLink>
+                        </li>
                         <li className="nav-item">
                             <NavLink className = "nav-link" to = "/places/new">Add a place</NavLink>
                         </li>

@@ -34,7 +34,7 @@ const Place = (props) => {
         fetchPlace();
     }, []);
     return (
-        <div className="container">
+        <div className="container" style={{display: "flex", justifyContent: "center", alignItems: "center"}}>
             {
                 isLoading &&
                 <LoadingWhite></LoadingWhite>

@@ -6,7 +6,7 @@ import './Explorer.css';
 const Explorer = (props) => {
     
     return (
-        <div class = "container">
+        <div className = "container">
             <div className = "explorer-header">
                 Explore
             </div>

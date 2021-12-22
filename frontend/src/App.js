@@ -16,6 +16,7 @@ import About from './about/About';
 import Places from './places/pages/Places';
 import Explorer from './explorer/pages/Explorer';
 import Place from './places/pages/Place';
+import MyBookings from './booking/pages/MyBookings';
 
 
 function App() {
@@ -25,34 +26,39 @@ function App() {
   if(!!token){
     routes = (
       <React.Fragment>
-        <Route path = "/" exact>
-          <Places></Places>
-        </Route>
-        <Route path = "/about" exact>
-          <About></About>
-        </Route>
-        <Route path = "/places" exact>
-          <Places></Places>
-        </Route>
-        <Route path = "/explore" exact>
-          <Explorer></Explorer>
-        </Route>
-        <Route path = "/users" exact>
-          <Users></Users>
-        </Route>
-        <Route path = "/user/:userId/places" exact>
-          <UserPlaces></UserPlaces>
-        </Route>
-        <Route path = "/places/new" exact>
-          <NewPlace></NewPlace>
-        </Route>
-        <Route path = "/place/:placeId">
-          <Place></Place>
-        </Route>
-        <Route path = "/edit-place/:placeId">
-          <UpdatePlace></UpdatePlace>
-        </Route>
-        <Redirect to = "/"></Redirect>
+        <Switch>  
+          <Route path = "/" exact>
+            <Places></Places>
+          </Route>
+          <Route path = "/about" exact>
+            <About></About>
+          </Route>
+          <Route path = "/places" exact>
+            <Places></Places>
+          </Route>
+          <Route path = "/explore" exact>
+            <Explorer></Explorer>
+          </Route>
+          <Route path = "/users" exact>
+            <Users></Users>
+          </Route>
+          <Route path = "/user/:userId/places" exact>
+            <UserPlaces></UserPlaces>
+          </Route>
+          <Route path = "/places/new" exact>
+            <NewPlace></NewPlace>
+          </Route>
+          <Route path = "/my-bookings" exact>
+            <MyBookings></MyBookings>
+          </Route>
+          <Route path = "/place/:placeId" exact>
+            <Place></Place>
+          </Route>
+          <Route path = "/edit-place/:placeId" exact>
+            <UpdatePlace></UpdatePlace>
+          </Route>
+          <Redirect to = "/"></Redirect>
+        </Switch>
       </React.Fragment>
     );
   } else{
@@ -70,16 +76,16 @@ function App() {
         <Route path = "/explore" exact>
           <Explorer></Explorer>
         </Route>
-        <Route path = "/place/:placeId">
+        <Route path = "/place/:placeId" exact>
           <Place></Place>
         </Route>
         <Route path = "/places" exact>
           <Places></Places>
         </Route>
-        <Route path = "/sign-in">
+        <Route path = "/sign-in" exact>
           <SignIn></SignIn>
         </Route>
-        <Route path = "/sign-up">
+        <Route path = "/sign-up" exact>
           <SignUp></SignUp>
         </Route>
         <Route path = "/user/:userId/places" exact>

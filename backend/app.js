@@ -5,10 +5,13 @@ const express = require("express");
 const app = express();
 const placesRoutes = require("./routes/places");
 const usersRoutes = require("./routes/users");
+const bookingsRoutes = require('./routes/bookings');
+const paymentsRoutes = require("./routes/payments");
 const HttpError = require("./models/http-error");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const connectDB = require("./config/db");
+const bodyParser = require("body-parser");
 
 // Loading config
 dotenv.config({ path: "./config.env" });
@@ -28,7 +31,8 @@ app.use((req, res, next) => {
     // Which methods should be allowed?
     res.setHeader(
         "Access-Control-Allow-Methods",
-        "GET, POST, PATCH, DELETE, OPTIONS"
+        "GET, POST, PATCH, DELETE, OPTIONS",
+        "Access-Control-Allow-Origin",
     );
     // Which headers should be allowed?
     res.setHeader(
@@ -40,8 +44,11 @@ app.use((req, res, next) => {
 });
 
 // Routes
+app.use("/api", paymentsRoutes);
 app.use("/api", usersRoutes);
 app.use("/api", placesRoutes);
+app.use("/api", bookingsRoutes);
+
 
 // Only runs if no response is sent from either of the routes
 app.use((req, res, next) => {

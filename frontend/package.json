@@ -4,14 +4,19 @@
   "private": true,
   "dependencies": {
     "@chakra-ui/react": "^1.7.3",
-    "@craco/craco": "^6.4.0",
+    "@craco/craco": "^6.4.3",
     "@emotion/react": "^11.7.1",
     "@emotion/styled": "^11.6.0",
     "@headlessui/react": "^1.4.1",
     "@heroicons/react": "^1.0.5",
+    "@wojtekmaj/react-daterange-picker": "^3.3.2",
+    "craco": "^0.0.3",
+    "date-fns": "^2.27.0",
     "framer-motion": "^4.1.17",
     "marked": "^4.0.1",
-    "react": "^16.11.0",
+    "react": "^16.14.0",
+    "react-calendar": "^3.5.0",
+    "react-date-range": "^1.4.0",
     "react-dom": "^16.11.0",
     "react-icons": "^4.3.1",
     "react-markdown": "^7.1.0",
@@ -42,6 +47,7 @@
     ]
   },
   "devDependencies": {
+    "@testing-library/react": "^12.1.2",
     "autoprefixer": "^9.8.8",
     "postcss": "^7.0.39",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.2.17"

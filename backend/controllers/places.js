@@ -5,24 +5,26 @@ const getCoordinates = require("../util/location");
 const Place = require("../models/place");
 const User = require("../models/user");
 const fs = require("fs");
+const {getPlace, verifyUser} = require("../middleware/verify");
+
 
 const getPlaceById = async (req, res, next) => {
     const placeId = req.params.placeId;
-    let place;
-    try{
-        place = await Place.findById(placeId).populate("creator");
-    } catch{
-        return next(new HttpError("Something went wrong, could not find place", 404));
-    }    
-    if(!place){
-        next(new HttpError("Could not find place for the provided id", 404));
-    }
-    console.log(place);
+    let place = await getPlace(req, res, next, placeId);
+    // try{
+    //     place = await Place.findById(placeId).populate("creator");
+    // } catch{
+    //     return next(new HttpError("Something went wrong, could not find place", 404));
+    // }    
+    // if(!place){
+    //     next(new HttpError("Could not find place for the provided id", 404));
+    // }
     res.status(201).json({place: place.toObject({getters: true})});
 };
 
 const getPlacesByUserId = async(req, res, next) =>{
     const userId = req.params.userId;
+    await verifyUser(req, res, next, userId);
     let places;
     try{
         places = await Place.find({creator: userId});
@@ -32,14 +34,14 @@ const getPlacesByUserId = async(req, res, next) =>{
     }
     let user;
     try{
-        user = await User.findById(userId);
+        user = await User.findById(userId, "-password");
     }
     catch{
         return next(new HttpError("Fetching user from userID failed", 404));
     }
     
-    if(!user || !places){
-        return next(new HttpError("Could not find any places or users for the provided user id", 404));
+    if(!places){
+        return next(new HttpError("Could not find any places for the provided user id", 404));
     }
     res.json({user: user.toObject({getters: true}), places: places.map(place => place.toObject({getters: true}))});
 }
@@ -200,6 +202,7 @@ const updatePlaceById = async (req, res, next) => {
 }
 
 const deletePlaceById = async (req, res, next) => {
+    
     const placeId = req.params.placeId;
     let place;
     try{
@@ -251,7 +254,6 @@ const deletePlaceById = async (req, res, next) => {
 }
 
 const getAllPlaces = async(req, res, next) => {
-    console.log("Route connected to correct controller!");
     let allPlaces = [];
     try{
         allPlaces = await Place.find({}).populate("creator");
@@ -260,7 +262,6 @@ const getAllPlaces = async(req, res, next) => {
         return next(new HttpError("Cannot find all places!", 404));
     }
 
-    console.log(allPlaces);
     if(!allPlaces || allPlaces.length === 0){
         return next(new HttpError("Could not find any places for any users", 404));
     }

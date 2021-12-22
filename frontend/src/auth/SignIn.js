@@ -116,7 +116,7 @@ const SignIn = (props) => {
                 </form>  
                 <div className = "auth-form-footer mb-3">
                     <p>Don't have an account?</p>
-                    <Link class = "btn btn-outline-primary" to = "/sign-up">Switch to Sign-up</Link>
+                    <Link className = "btn btn-outline-primary" to = "/sign-up">Switch to Sign-up</Link>
                 </div>
                 
                 {/* <button onClick = {switchModeHandler} className = "btn btn-outline-warning">Switch to {showLogin? "Sign-up" : "Sign In"}?</button> */}

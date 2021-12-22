@@ -226,7 +226,7 @@ const UpdatePlace = (props) => {
                             id = "price"
                             type = "number" 
                             element = "input" 
-                            label = "Price (in $)"
+                            label = "Price (in ₹)"
                             placeholder = "200"
                             value = {place.price}
                             errorText = "Price cannot be negative or empty!"

@@ -138,7 +138,7 @@ const SignUp = (props) => {
                 </form>    
                 <div className = "auth-form-footer mb-3">
                     <p>Already have an account?</p>
-                    <Link class = "btn btn-outline-primary" to = "/sign-in">Switch to Sign-in</Link>
+                    <Link className = "btn btn-outline-primary" to = "/sign-in">Switch to Sign-in</Link>
                 </div>
             </div>
             

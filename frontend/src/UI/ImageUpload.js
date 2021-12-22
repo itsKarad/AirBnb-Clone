@@ -51,11 +51,11 @@ const ImageUpload = (props) => {
                 ></input>
                 <div className = "image-upload">
                     { showPreview && 
-                        <div class = "image-upload-preview">
-                            <img class = "image-upload-profile-photo" src = {previewURL} alt = "Preview"></img>
+                        <div className = "image-upload-preview">
+                            <img className = "image-upload-profile-photo" src = {previewURL} alt = "Preview"></img>
                         </div>
                     }
-                    <button onClick = {pickImageHandler} class = "btn btn-primary">Upload an image</button>
+                    <button onClick = {pickImageHandler} className = "btn btn-primary">Upload an image</button>
                 </div>   
                 {!isValid && <p style = {{color: "red"}}>You must upload a provide picture!</p>}             
         </div>

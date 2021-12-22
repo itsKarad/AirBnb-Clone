@@ -126,12 +126,12 @@ const MapExplorer = (props) => {
             marker.addListener("click", () => {
               infoWindow.close();
               infoWindow.setContent(`
-              <div class = "map-label-container">
+              <div className = "map-label-container">
               <a href = "/place/${place.id}" target="_blank">
-                <div class = "map-label-image-container">
-                <img class = "map-label-image" src = ${`${process.env.REACT_APP_BACKEND_URL}/`+place.image} />
+                <div className = "map-label-image-container">
+                <img className = "map-label-image" src = ${`${process.env.REACT_APP_BACKEND_URL}/`+place.image} />
                 </div>
-                <div class = "map-label-info-container">
+                <div className = "map-label-info-container">
                   <h3> 
                     
                       <strong>${marker.getTitle()} </strong>  

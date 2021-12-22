@@ -1,19 +1,22 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import styles from './PlaceFullView.module.css';
 import { Link } from 'react-router-dom';
-import { useContext, useState } from 'react';
+import { useContext } from 'react';
 import useHttp from '../../hooks/use-http';
 import { LoadingWhite } from '../../UI/Loading';
 import Map from '../../UI/Map';
 import Prompt from '../../UI/Prompt';
 import AuthContext from '../../shared/context/auth-context';
-import { SimpleGrid } from '@chakra-ui/react';
+import { AlertDescription, AlertTitle, CloseButton, SimpleGrid } from '@chakra-ui/react';
 import { Image } from '@chakra-ui/react';
 import FeatureBlock from '../../UI/FeatureBlock';
-import {FaDollarSign} from 'react-icons/fa';
+import {FaDollarSign, FaRupeeSign} from 'react-icons/fa';
 import {MdOutlineBedroomParent, MdOutlineBed} from 'react-icons/md';
 import AmenitiesSection from './AmenitiesSections';
 import { useHistory } from 'react-router-dom';
+import PlaceBooking from '../../booking/PlaceBooking';
+import { Alert } from '@chakra-ui/react';
+import { AlertIcon } from '@chakra-ui/react';
 
 
 const PlaceFullView = (props) => {
@@ -21,6 +24,26 @@ const PlaceFullView = (props) => {
     const authCtx = useContext(AuthContext);
     const {isLoading, sendRequest} = useHttp();
     const [showPrompt, setShowPrompt] = useState(false);
+    const [paymentStatus, setPaymentStatus] = useState("");
+    const [chakraPaymentStatus, setChakraPaymentStatus] = useState("");
+    
+    useEffect(() => {
+        // Check to see if this is a redirect back from Stripe Checkout
+        const query = new URLSearchParams(window.location.search);
+        if (query.get("success")) {
+            setPaymentStatus(
+                "Booking successful! See more details in 'My Bookings' section"
+            );    
+            setChakraPaymentStatus("success");
+        }
+
+        if (query.get("cancelled")) {
+            setPaymentStatus(
+                "Booking failed! Try again!"
+            );
+            setChakraPaymentStatus("error");
+        }
+    }, []);
 
     const openPromptHandler = (event) => {
         event.preventDefault();
@@ -66,13 +89,36 @@ const PlaceFullView = (props) => {
             <div className = {styles["place-container"]}>
                 <div className = {styles["place"]}>
                     <div className = {styles["place-image-container"]} >
-                        <img alt = "Place pic" src = {placeImageLink} class = {styles["place-image"]}></img>
+                        <img alt = "Place pic" src = {placeImageLink} className = {styles["place-image"]}></img>
                     </div>
                                        
                     <div className = {styles["place-info"]}>
                         <div className = {styles["place-title"]}>
                             {props.place.title}
                         </div> 
+                        {
+                            chakraPaymentStatus !== "" &&
+                            <Alert status = {chakraPaymentStatus} className = {styles['chakra-alert']}>
+                                <AlertIcon />
+                                <AlertDescription>
+                                    {paymentStatus}
+                                </AlertDescription>
+                                
+                                <CloseButton position='absolute' right='8px' top='8px' />
+                            </Alert>
+                        }
+                        {
+                            authCtx.isLoggedIn && 
+                            <div className = {styles["section-header"]}>
+                                📆 Book {props.place.title}
+                            </div>
+                        }
+                        {
+                            authCtx.isLoggedIn && 
+                            <div className = {styles["place-booking"]}>
+                                <PlaceBooking place = {props.place}></PlaceBooking>
+                            </div>
+                        }
                         {
                             authCtx.isLoggedIn && authCtx.userId === props.place.creator.id &&
                             <div className = {styles["section-header"]}>
@@ -104,10 +150,9 @@ const PlaceFullView = (props) => {
                         <SimpleGrid minChildWidth='240px' spacing='40px'>
                             <FeatureBlock icon = {<MdOutlineBedroomParent />} data = {`${props.place.numberOfBedrooms} bedrooms`} />
                             <FeatureBlock icon = {<MdOutlineBed />} data = {`${props.place.numberOfBeds} beds`} />
-                            <FeatureBlock icon = {<FaDollarSign />} data = {`$ ${props.place.price} / night`} />
+                            <FeatureBlock icon = {<FaRupeeSign />} data = {`₹ ${props.place.price} / night`} />
                         </SimpleGrid>
-
-                        
+                    
                         <div className = {styles["section-header"]}>
                             📚 Description
                         </div>

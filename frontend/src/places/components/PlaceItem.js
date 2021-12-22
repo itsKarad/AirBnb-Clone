@@ -35,7 +35,7 @@ const PlaceItem = (props) => {
                     <div className = "place-item">
                     <Link to = {`/place/${props.place.id}`} className='place-card'>
                         <div className = "place-image-container" >
-                            <img alt = "Place pic" src = {imageLink} class = "place-image"></img>
+                            <img alt = "Place pic" src = {imageLink} className = "place-image"></img>
                         </div>
                         <div className = "place-title">
                             {props.place.title}
@@ -44,7 +44,7 @@ const PlaceItem = (props) => {
                                             
                     <div className = "place-info">
                         <div className='place-price'>
-                            $ {props.place.price} / night
+                            ₹{props.place.price} / night
                         </div>
                         <div className = "place-address">
                             {props.place.address}

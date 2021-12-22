@@ -205,8 +205,8 @@ const NewPlace = (props) => {
                         id = "price"
                         type = "number" 
                         element = "input" 
-                        label = "Price (in $)"
-                        placeholder = "200"
+                        label = "Price (in ₹)"
+                        placeholder = "2000"
                         errorText = "Price cannot be negative or empty!"
                         onInput = {inputChangeHandler}
                         ></Input>
