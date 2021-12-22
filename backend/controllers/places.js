@@ -202,7 +202,6 @@ const updatePlaceById = async (req, res, next) => {
 }
 
 const deletePlaceById = async (req, res, next) => {
-    
     const placeId = req.params.placeId;
     let place;
     try{

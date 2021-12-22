@@ -12,7 +12,7 @@ const { verifyUser, verifyPlace, getPlace, getUser } = require("../middleware/ve
 // POST: creating new booking
 const createNewBooking = async(req, res, next) => {
     console.log("Creating new booking 🚀🚀🚀");
-
+    console.log(req.body);
     const {
         ownerId,
         customerId,
@@ -30,11 +30,9 @@ const createNewBooking = async(req, res, next) => {
         bookingEnd,
         price,
     });
-    console.log(!ownerId);
-    await verifyUser(req, res, next, ownerId);
     await verifyUser(req, res, next, customerId);
     await verifyPlace(req, res, next, placeId)
-
+    console.log("Reached");
     // check if dates are valid
 
     // check place is not booked for any nights between those dates
@@ -58,7 +56,7 @@ const createNewBooking = async(req, res, next) => {
 const checkAvailibity = async(req, res, next) => {
     const placeId = req.params.placeId;
     const date = req.params.date;
-    const place = getPlace(placeId);
+    const place = await getPlace(req, res, next, placeId);
 
     let bookings = [];
     try{
@@ -84,7 +82,7 @@ const bookingsByUser = async(req, res, next) => {
         return next(new HttpError("User cannot access another's bookings"));
     }
     
-    let foundUser = getUser(userId);
+    let foundUser = await getUser(req, res, next, userId);
     let bookings = [];
     try{
         bookings = await Booking.find({customerId: userId, paymentSuccess: true}).populate("placeId");
