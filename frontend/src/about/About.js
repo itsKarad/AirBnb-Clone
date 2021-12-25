@@ -3,19 +3,14 @@ import ReactMarkdown from 'react-markdown';
 import file from './about.md';
 import './About.css';
 const About = (props) => {
-    const [markdown, setMarkdown] = useState("");
 
     useEffect(() => {
-        fetch(file)
-          .then((res) => res.text())
-          .then((text) => setMarkdown(text));
+        window.location.href = 'https://itskarad.notion.site/AirBnb-Clone-4ef3360f02bc4b95992e359823fa3fc9';
       }, []);
     
-
     return (
-        <div className = "container mb-3">
-            <ReactMarkdown children = {markdown} className = "markdown-container"></ReactMarkdown>
-        </div>
+        <div></div>
+
     );
 };
 

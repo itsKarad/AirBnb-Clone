@@ -5,20 +5,20 @@ const getCoordinates = require("../util/location");
 const Place = require("../models/place");
 const User = require("../models/user");
 const fs = require("fs");
-const {getPlace, verifyUser} = require("../middleware/verify");
+const {getPlace, verifyUser, getUser} = require("../middleware/verify");
 
 
 const getPlaceById = async (req, res, next) => {
     const placeId = req.params.placeId;
-    let place = await getPlace(req, res, next, placeId);
-    // try{
-    //     place = await Place.findById(placeId).populate("creator");
-    // } catch{
-    //     return next(new HttpError("Something went wrong, could not find place", 404));
-    // }    
-    // if(!place){
-    //     next(new HttpError("Could not find place for the provided id", 404));
-    // }
+    let place = null;
+    try{
+        place = await Place.findById(placeId).populate("creator");
+    } catch{
+        return next(new HttpError("Something went wrong, could not find place", 404));
+    }    
+    if(!place){
+        return next(new HttpError("Could not find place for the provided id", 404));
+    }
     res.status(201).json({place: place.toObject({getters: true})});
 };
 

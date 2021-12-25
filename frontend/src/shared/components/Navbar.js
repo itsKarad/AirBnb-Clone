@@ -18,7 +18,8 @@ const Navbar = (props) => {
                 <div className="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                         <li className="nav-item">
-                            <NavLink className = "nav-link" to = "/about" >About</NavLink>
+                            <a className='nav-link' href = "https://itskarad.notion.site/AirBnb-Clone-4ef3360f02bc4b95992e359823fa3fc9" target="_blank">About</a>
+                            {/* <NavLink className = "nav-link" to = "/about" >About</NavLink> */}
                         </li>
                     </ul>
                     <ul className="navbar-nav mr-auto mb-2 mb-lg-0">

@@ -54,7 +54,7 @@ const BookingTable = (props) => {
                                 <Td>{booking.createdAt.slice(0,10)}</Td>
                                 <Td>{booking.placeId.title}</Td>
                                 <Td>{(booking.bookingStart).slice(0,10)} - {(booking.bookingEnd).slice(0,10)}</Td>
-                                <Td>{booking.price}</Td>
+                                <Td>₹ {booking.price}</Td>
                             </Tr>
                         );
                     })}
