@@ -15,7 +15,9 @@ const PlaceItem = (props) => {
     const [showMap, setShowMap] = useState(false);
     const openMapHandler = () => setShowMap(true);
     const closeMapHandler = () => setShowMap(false);
-    
+    const brokenImageHandler = (e) => {
+        e.target.src = "https://i.imgur.com/BXkBZnn.png"
+    }
     const imageLink = `${process.env.REACT_APP_BACKEND_URL}/`+props.place.image;
     return (        
         <React.Fragment>
@@ -35,7 +37,7 @@ const PlaceItem = (props) => {
                     <div className = "place-item">
                     <Link to = {`/place/${props.place.id}`} className='place-card'>
                         <div className = "place-image-container" >
-                            <img alt = "Place pic" src = {imageLink} className = "place-image"></img>
+                            <img onError={brokenImageHandler} alt = "Place pic" src = {imageLink} className = "place-image"></img>
                         </div>
                         <div className = "place-title">
                             {props.place.title}

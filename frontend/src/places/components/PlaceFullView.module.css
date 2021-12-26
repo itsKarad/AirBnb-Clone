@@ -1,5 +1,6 @@
 .place-container{
     margin: 0 auto;
+    overflow-x: hidden;
 }
 .place{
     font-size: 1.4rem;
@@ -24,7 +25,9 @@
 
 }
 .place-image{
-    width: 70%;
+
+    width: 95%;
+    max-width: 40rem;
     border-radius: 20px;
     margin: 0 auto;
 }
@@ -66,4 +69,9 @@
 
 .chakra-alert{
     color: black;
+}
+
+.place-booking{
+    width: 95% !important;
+    overflow-x: scroll !important;
 }

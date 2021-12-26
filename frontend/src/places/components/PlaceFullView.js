@@ -26,7 +26,9 @@ const PlaceFullView = (props) => {
     const [showPrompt, setShowPrompt] = useState(false);
     const [paymentStatus, setPaymentStatus] = useState("");
     const [chakraPaymentStatus, setChakraPaymentStatus] = useState("");
-    
+    const brokenImageHandler = (e) => {
+        e.target.src = "https://i.imgur.com/BXkBZnn.png"
+    }
     useEffect(() => {
         // Check to see if this is a redirect back from Stripe Checkout
         const query = new URLSearchParams(window.location.search);
@@ -89,7 +91,7 @@ const PlaceFullView = (props) => {
             <div className = {styles["place-container"]}>
                 <div className = {styles["place"]}>
                     <div className = {styles["place-image-container"]} >
-                        <img alt = "Place pic" src = {placeImageLink} className = {styles["place-image"]}></img>
+                        <img onError={brokenImageHandler} alt = "Place pic" src = {placeImageLink} className = {styles["place-image"]}></img>
                     </div>
                                        
                     <div className = {styles["place-info"]}>
