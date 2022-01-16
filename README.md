@@ -80,3 +80,22 @@ It is a simple, full-stack AirBnb clone where users can list their own place for
 If these images are not found, they are automatically replaced by the a black placeholder image
 
 </aside>
+
+# How to use?
+
+1. Clone/download this repo.
+2. Make a `.env` file in `./frontend` to store environmental variables for React app.
+    1. `REACT_APP_BACKEND_URL` : URL of the backend
+    2. `REACT_APP_GOOGLE_API_KEY` : Google Maps API key.
+3. Make a config.env file in ./backend to store environmental variables for backend app.
+    1. `MONGO_URI` : MongoDB URI connection.
+    2. `GOOGLE_API` : Google Maps API key
+    3. `JWT_SECRET` 
+    4. `STRIPE_SECRET_KEY`
+    5. `STRIPE_WEBHOOK_SECRET`
+    6. `FRONTEND_URL` : URL of the domain where frontend is being hosted.
+    7. `SENDGRID_API_KEY` 
+4. Run `npm i` in `./backend`.
+5. Run `npm i` in `./frontend`.
+6. Run `node app.js` in `./backend`.
+7. Run `npm start` in `./frontend` folder.
