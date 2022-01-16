@@ -87,7 +87,7 @@ If these images are not found, they are automatically replaced by the a black pl
 2. Make a `.env` file in `./frontend` to store environmental variables for React app.
     1. `REACT_APP_BACKEND_URL` : URL of the backend
     2. `REACT_APP_GOOGLE_API_KEY` : Google Maps API key.
-3. Make a `config.env` file in ./backend to store environmental variables for backend app.
+3. Make a `config.env` file in `./backend` to store environmental variables for backend app.
     1. `MONGO_URI` : MongoDB URI connection.
     2. `GOOGLE_API` : Google Maps API key
     3. `JWT_SECRET` 
